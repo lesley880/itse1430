@@ -34,7 +34,6 @@ If you are unable to meet the above requirements then you will need to use the C
 [Style Guidelines](https://github.com/michaeltccd/ITSE1430-docs/blob/master/documentation/style/readme.md)
 
 ## Repository Layout
-
 The repository is laid out in a way to make it easier for you to work with during class.
 
 - `classwork` is where your daily classwork will go. Each time we do work in class you will push the work to this folder so you can refer to it later.
