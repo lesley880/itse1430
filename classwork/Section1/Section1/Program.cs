@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * ITSE 1430
+ * Lesley Reller
+ */ 
+using System;
 
 namespace Section1
 {
@@ -7,6 +11,18 @@ namespace Section1
         static void Main ( string[] args )
         {
             Console.WriteLine("Hello World!");
+
+            int hours;
+            double payrate;
+            string name;
+            bool pass;
+
+            // incorrect/unnes
+                //int results;
+                //results = Foo();
+
+            // proper
+                //int results = Foo();j
         }
     }
 }
