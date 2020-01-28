@@ -29,35 +29,108 @@ namespace Section1
         private static bool ReadBoolean ( string message )
         {
             Console.Write(message + " (Y/N) ");
-            string value = Console.ReadLine();
 
-            //TODO: Do this correctly!
-            char firstChar = value[0];
-            return firstChar == 'Y';
+            do
+            {
+                string value = Console.ReadLine();
+
+                /* Check for empty string:
+                     1. if (value != " ")
+                     2. if (value != String.Empty)
+                     3. if (value.Length == 0)
+                     4. if (!String.IsNullOrEmpty(value))                 ~Preferred Approach~
+                */
+
+                if (!String.IsNullOrEmpty(value))
+                    {
+                    /* Input validation
+                         1. String casing
+                         2. String Comparison
+                         3. If
+                         4. Switch 
+                    */
+
+
+                    //value = value.ToLower();
+                    //if (value == "y")
+                    //    return true;
+                    //else if (value == "n")
+                    //    return false;
+
+                    // bool isYes = String.Compare(value, "Y", true) == 0 ? true : false;  // popular Quiz Question
+
+                    if (String.Compare(value, "Y", true) == 0)
+                        return true;
+                    else if (String.Compare(value, "N", true) == 0)
+                        return false;
+
+                    // Code below only looking for first letter so, York would be true, and New York would be false
+                    char firstChar = value[0];
+                    //if (firstChar == 'Y' || firstChar == 'y')
+                    //    return true;
+                    //else if (firstChar == 'N' || firstChar == 'n')
+                    //    return false;
+
+
+                    //switch (firstChar)
+                    //{
+                    //    //case 'A':
+                    //    //{
+                    //    //    Console.WriteLine("A"); 
+                    //    //    break;
+                    //    //};
+                    //    //case 'a': Console.WriteLine("a"); break;
+
+                    //    case 'Y':                   // fallback         ~Preferred Approach~
+                    //    case 'y': return true;
+
+                    //    case 'N': return false;     // no fallback
+                    //    case 'n': return false;
+                    //};
+                };
+
+                Console.Write("Enter Y/N: ");
+            } while (true);
         }
 
         private static string ReadString ( string message, bool required )
         {
             Console.Write(message);
-            string value = Console.ReadLine();
 
-            //TODO: Validate
-            return value;
+            do
+            {
+                string value = Console.ReadLine();
+
+                // if required and string is empty then error
+                if (!String.IsNullOrEmpty(value) || !required)
+                    return value;
+
+                if (required)
+                    Console.Write("Value is required: ");
+
+            } while (true);
+       
+        
         }
 
         private static int ReadInt32 ( string message, int minValue, int maxValue )
         {
             Console.Write(message);
+            do
+            {
+                // var is only allowed in local variable situations 
+                var temp = Console.ReadLine();
+                // int value = Int32.Parse(temp);
 
-            string temp = Console.ReadLine();
+                //int value;
+                if (Int32.TryParse(temp, out var value))
+                {
+                    if (value >= minValue && value <= maxValue)
+                        return value;
+                };
 
-            // int value = Int32.Parse(temp);
-            int value;
-            if (Int32.TryParse(temp, out value))
-                return value;
-
-            //TODO: Validate input
-            return -1;
+                Console.Write("Value must be between minValue and maxValue: ");
+            } while (true);
         }
 
         private static void PlayingWithVariables ()
