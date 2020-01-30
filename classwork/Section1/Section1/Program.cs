@@ -274,7 +274,6 @@ namespace Section1
             var trimSlash = path.Trim('\\', '-');
 
             var tokens = path.Split('\\');
-
         }
     }
 }
