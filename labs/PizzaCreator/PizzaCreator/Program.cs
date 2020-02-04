@@ -10,76 +10,82 @@ namespace PizzaCreator
 {
     class Program
     {
-        static void Main ( string[] args )
+        static void Main (string[] args)
         {
-            //var userInput = 0;
-            //do
-            //{
-            //    userInput = DisplayMenu();
-            //} while (userInput!=5);
-
-            bool showMenu = true;
-            while (showMenu)
+            var done = false;
+            do
             {
-                MainMenu();
-            }
-            
-            Display();
+                switch (DisplayMenu())
+                {
+                    case Command.New: NewOrder(); break;
+                    case Command.Display: DisplayOrder(); break;
+                    case Command.Quit: done = true; break;
+                }
+            } while (!done);
         }
 
-        private static bool MainMenu()
+        enum Command
         {
-            Console.WriteLine("   Menu ");
-            Console.WriteLine("1. poop ");
-            Console.WriteLine("2. poo");
-            Console.WriteLine("3. po");
-            Console.WriteLine("4. p");
-            Console.WriteLine("5. Quit");
-            Console.WriteLine("");
-            Console.Write("Select an Option: ");
+            Quit = 0,
+            Display = 1,
+            New = 2,
+        }
 
-            switch (Console.ReadLine())
+        private static bool ReadBoolean (string message)
+        {
+            Console.WriteLine(message + " (Y/N) ");
+            do
             {
-                case "1":
-                Display();
-                return true;
-
-                case "2":
-                Display();
-                return true;
-
-                case "3":
-                Display();
-                return true;
-
-                case "4":
-                Display();
-                return true;
-
-                case "5":
-                Display();
-                return true;
-
-            }
-
-
-            return false;
+                string value = Console.ReadLine();
+                if (!String.IsNullOrEmpty(value))
+                {
+                    if (String.Compare(value, "Y", true) == 0)
+                        return true;
+                    else if (String.Compare(value, "N", true) == 0)
+                        return false;
+                    char firstChar = value[0];
+                };
+                Console.WriteLine("Enter Y/N: ");
+            } while (true);
         }
 
-        static int Display()
+        static void NewOrder()
         {
-            return 0;
-        }
-        //static public int DisplayMenu()
-        //{
-        //    Console.WriteLine("1. poop ");
-        //    Console.WriteLine("2. poo");
-        //    Console.WriteLine("3. po");
-        //    Console.WriteLine("4. p");
-        //    Console.WriteLine("5. Quit");
+            do
+            {
+                Console.WriteLine("Pizza size: (choose one)");
+                Console.WriteLine("Meat: ");
+                Console.WriteLine("Vegetables: ");
+                Console.WriteLine("Sauce: (choose one)");
+                Console.WriteLine("Cheese: (choose one)");
+                Console.WriteLine("Delivery: (choose one)");
 
-        //    var result = Console.ReadLine();
-        //    return Convert.ToInt32(result);
-        //}
+            } while ();
+        }
+
+        static void DisplayOrder()
+        {
+
+        }
+
+        private static Command DisplayMenu ()
+        {
+            do
+            {
+                Console.WriteLine("N)ew Order: ");
+                Console.WriteLine("D)isplay Order: ");
+                Console.WriteLine("Q)uit.");
+
+                var input = Console.ReadLine();
+                switch(input.ToLower())
+                {
+                    case "n": return Command.New;
+                    case "d": return Command.Display;
+                    case "q": return Command.Quit;
+
+                    default: Console.WriteLine("Invalid option, please enter a valid letter. "); break;
+                };
+            } while (true);
+        }
     }
 }
