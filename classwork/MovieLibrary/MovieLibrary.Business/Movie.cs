@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary.Business
 {
+    /// <summary>Represents a movie</summary>
+    /// <remarks>
+    /// lots of info
+    /// </remarks>
+
     public class Movie
     {
-        string title;
+        public string title;
 
-        int runLength;
+        /// <summary>Run length in movie. </summary>
+        public int runLength;
 
-        string description;
+        public string description;
 
-        int releaseYear;
+        public int releaseYear;
 
-        bool inClassic;
+        public bool inClassic;
     }
 }
