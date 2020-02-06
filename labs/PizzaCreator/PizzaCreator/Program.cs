@@ -100,14 +100,17 @@ namespace PizzaCreator
                 switch (choice)
                 {
                     case "S":
+                    case "s":
                     cost += 5.00;
                     break;
 
                     case "M":
+                    case "m":
                     cost += 6.25;
                     break;
 
                     case "L":
+                    case "l":
                     cost += 8.75;
                     break;
 
@@ -134,14 +137,17 @@ namespace PizzaCreator
                 switch (choice)
                 {
                     case "T":
+                    case "t":
                     cost += 0.00;
                     break;
 
                     case "G":
+                    case "g":
                     cost += 1.00;
                     break;
 
                     case "O":
+                    case "o":
                     cost += 1.00;
                     break;
 
@@ -192,22 +198,27 @@ namespace PizzaCreator
                 switch (choice)
                 {
                     case "B":
+                    case "b":
                     cost += 0.75;
                     break;
 
                     case "H":
+                    case "h":
                     cost += 0.75;
                     break;
 
                     case "P":
+                    case "p":
                     cost += 0.75;
                     break;
 
                     case "S":
+                    case "s":
                     cost += 0.75;
                     break;
 
                     case "N":
+                    case "n":
                     break;
 
                     default:
@@ -233,22 +244,27 @@ namespace PizzaCreator
                 switch (choice)
                 {
                     case "B":
+                    case "b":
                     cost += 0.50;
                     break;
 
                     case "M":
+                    case "m":
                     cost += 0.50;
                     break;
 
                     case "O":
+                    case "o":
                     cost += 0.50;
                     break;
 
                     case "P":
+                    case "p":
                     cost += 0.50;
                     break;
 
                     case "N":
+                    case "n":
                     break;
 
                     default:
