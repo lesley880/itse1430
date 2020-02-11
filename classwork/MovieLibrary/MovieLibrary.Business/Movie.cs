@@ -13,15 +13,44 @@ namespace MovieLibrary.Business
 
     public class Movie
     {
-        public string title;
+        /// <summary>Gets or sets the title/// </summary>
+        public string Title                  // Property
+        {
+            get { return _title; }
+            set { _title = value; }
+        }
+
+        private string _title;               // field
 
         /// <summary>Run length in movie. </summary>
-        public int runLength;
+        public int RunLength
+        {
+            get { return _runLength; }
+            set { _runLength = value; }
+        }
 
-        public string description;
+        private int _runLength;
 
-        public int releaseYear;
+        /// <summary>Gets or sets the description/// </summary>
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
 
-        public bool inClassic;
-    }
+        private string _description;
+
+        /// <summary>Gets or sets the release year/// </summary>
+        public int ReleaseYear
+        {
+            get { return _releaseYear }
+            set { _releaseYear = value; }
+        }
+        private int _releaseYear;
+
+        /// <summary>Gets or sets the title/// </summary>
+        public bool InClassic
+        {
+
+        }
 }
