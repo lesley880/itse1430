@@ -21,10 +21,10 @@ namespace MovieLibrary
             // MovieLibrary.Business.Movie;
             var movie = new Movie();
 
-            movie.title = "Jaws";
-            movie.description = movie.title;
+            //movie.title = "Jaws";
+            //movie.description = movie.title;
 
-            movie = new Movie();
+            //movie = new Movie();
 
             //DisplayMovie(movie);
             //DisplayMovie(null);
@@ -41,6 +41,7 @@ namespace MovieLibrary
 
         /// <summary>Displays an error message.</summary>
         /// <param name= "message"Error to display></param>
+        /// 
         void DisplayError(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -57,8 +58,8 @@ namespace MovieLibrary
             if (movie == null)
                 return;
 
-            var title = movie.title;
-            movie.description = "Test";
+            var title = movie.Title;
+            movie.Description = "Test";
 
             movie = new Movie();
         }
@@ -69,8 +70,35 @@ namespace MovieLibrary
 
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
-
             //TODO Save the movie
+            _movie = child.Movie;
+            //show child
+        }
+        private Movie _movie;
+
+        private void OnMovieDelete ( object sender, EventArgs e )
+        {
+            // Verify movie
+            if (_movie == null)
+                return;
+
+            // Confirm
+            if (!DisplayConfirmation($"Are you sure you want to delete {_movie.Title}?", "Delete"))
+                return;
+
+            //TODO: DELETE
+            _movie = null;
+        }
+
+        private void OnFileExit ( object sender, EventArgs e )
+        {
+            Close();
+        }
+
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var about = new AboutBox();
+            about.ShowDialog(this);
         }
     }
 }

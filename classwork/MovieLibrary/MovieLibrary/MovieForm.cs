@@ -18,25 +18,67 @@ namespace MovieLibrary.Winforms
             InitializeComponent();
         }
 
-        private void MovieForm_Load ( object sender, EventArgs e )
+        public Movie Movie
         {
-
+            get { return _movie; }
+            set { _movie = value; }
         }
+        private Movie _movie;
 
-        public Movie Movie;
+        private void OnCancel ( object sender, EventArgs e )
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
         private void OnOK ( object sender, EventArgs e )
         {
             //TODO: Validation and error reporting.
+            var movie = GetMovie();
+            if (!movie.Validate(out var error))
+            {
+                DisplayError(error);
+                return;
+            }
+
+            Movie = movie;
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void OnCancel ( object sender, EventArgs e )
+        private Movie GetMovie ()
         {
-            //TODO: Validation and error reporting.
-            DialogResult = DialogResult.Cancel;
-            Close();
+            var movie = new Movie();
+
+            // Null Conditional -text property will ever return null, no string property will EVER return null.
+            movie.Title = txtTitle.Text?.Trim();
+            movie.RunLength = GetAsInt32(txtRunLength);
+            movie.ReleaseYear = GetAsInt32(txtReleaseYear, 1900);
+            movie.Description = txtDescription.Text.Trim();
+            movie.IsClassic = chkIsClassic.Checked;
+
+            return movie;
+        }
+
+        void DisplayError ( string message )
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private int GetAsInt32 ( Control control )
+        {
+            return GetAsInt32(control, 0);
+        }
+
+        private int GetAsInt32( Control control, int emptyValue )
+        {
+            if (String.IsNullOrEmpty(control.Text))
+                return emptyValue;
+
+            if (Int32.TryParse(control.Text, out var result))
+                return result;
+
+            return -1;
         }
     }
 }
