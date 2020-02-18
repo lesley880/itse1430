@@ -64,6 +64,15 @@ namespace MovieLibrary
             movie = new Movie();
         }
 
+        protected override void OnFormClosing ( FormClosingEventArgs e )
+        {
+            base.OnFormClosing(e);
+
+            if (_movie != null)
+                if (!DisplayConfirmation("Are you sure you want to close?", "Close"))
+                    e.Cancel = true;
+        }
+
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             MovieForm child = new MovieForm();
@@ -74,6 +83,22 @@ namespace MovieLibrary
             _movie = child.Movie;
             //show child
         }
+
+        private void OnMovieEdit ( object sender, EventArgs e )
+        {
+            // Verify movie
+            if (_movie == null)
+                return;
+
+            MovieForm child = new MovieForm();
+            child.Movie = _movie;
+            if (child.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            //TODO Save the movie
+            _movie = child.Movie;
+        }
+
         private Movie _movie;
 
         private void OnMovieDelete ( object sender, EventArgs e )

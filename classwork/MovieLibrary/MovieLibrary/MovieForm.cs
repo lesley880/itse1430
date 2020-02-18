@@ -18,12 +18,20 @@ namespace MovieLibrary.Winforms
             InitializeComponent();
         }
 
-        public Movie Movie
+        public MovieForm ( Movie movie ) : this(movie != null ? "Edit" : "Add", movie)
         {
-            get { return _movie; }
-            set { _movie = value; }
+            //InitializeComponent();
+            //Movie = movie;
+            //Text = movie != null ? "Edit" : "Add";
         }
-        private Movie _movie;
+
+        public MovieForm ( string title, Movie movie ) : this()
+        {
+            Text = title;
+            Movie = movie;
+        }
+
+        public Movie Movie { get; set; }
 
         private void OnCancel ( object sender, EventArgs e )
         {
@@ -44,6 +52,20 @@ namespace MovieLibrary.Winforms
             Movie = movie;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        protected override void OnLoad (EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (Movie != null)
+            {
+                txtTitle.Text= Movie.Title;
+                txtDescription.Text = Movie.Description;
+                txtReleaseYear.Text = Movie.ReleaseYear.ToString();
+                txtRunLength.Text = Movie.RunLength.ToString();
+                chkIsClassic.Checked = Movie.IsClassic;
+            }
         }
 
         private Movie GetMovie ()
