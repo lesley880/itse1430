@@ -39,6 +39,8 @@
             this.txtRunLength = new System.Windows.Forms.TextBox();
             this.txtReleaseYear = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
+            this.ddlGenres = new System.Windows.Forms.ComboBox();
+            this.Items = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnOK
@@ -135,11 +137,30 @@
             this.txtDescription.Size = new System.Drawing.Size(100, 20);
             this.txtDescription.TabIndex = 10;
             // 
+            // ddlGenres
+            // 
+            this.ddlGenres.FormattingEnabled = true;
+            this.ddlGenres.Location = new System.Drawing.Point(119, 247);
+            this.ddlGenres.Name = "ddlGenres";
+            this.ddlGenres.Size = new System.Drawing.Size(100, 21);
+            this.ddlGenres.TabIndex = 11;
+            // 
+            // Items
+            // 
+            this.Items.AutoSize = true;
+            this.Items.Location = new System.Drawing.Point(32, 250);
+            this.Items.Name = "Items";
+            this.Items.Size = new System.Drawing.Size(36, 13);
+            this.Items.TabIndex = 12;
+            this.Items.Text = "Genre";
+            // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 319);
+            this.ClientSize = new System.Drawing.Size(614, 319);
+            this.Controls.Add(this.Items);
+            this.Controls.Add(this.ddlGenres);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtReleaseYear);
             this.Controls.Add(this.txtRunLength);
@@ -175,5 +196,7 @@
         private System.Windows.Forms.TextBox txtRunLength;
         private System.Windows.Forms.TextBox txtReleaseYear;
         private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.ComboBox ddlGenres;
+        private System.Windows.Forms.Label Items;
     }
 }
