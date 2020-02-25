@@ -8,6 +8,10 @@ namespace CharacterCreator.Business
 {
     public class Character
     {
+        public Profession Profession { get; set; }
+
+        public Race Race { get; set; }
+
         public string Name                       // Property
         {
             get { return _name??""; }            // name doesnt have space at end
@@ -15,25 +19,43 @@ namespace CharacterCreator.Business
         }
         private string _name;                    // field
 
-        //public string Profession
-        //{
+        public string Attributes { get; set; }
 
-        //}
-
-        //public string Race
-        //{
-
-        //}
-        //public string Attributes
-        //{
-
-        //}
-
-        public string Desciption
+        public string Description
         {
             get { return _description??""; }     
             set { _description = value?.Trim(); }
         }
         private string _description;
+
+        public bool Validate ( out string error )
+        {
+            if (String.IsNullOrEmpty(Name))
+            {
+                error = "Name is required.";
+                return false;
+            }
+
+            //if (IsNullOrEmpty(Profession))
+            //{
+            //    error = "Profession is required.";
+            //    return false;
+            //}
+
+            //if (String.IsNullOrEmpty(Race))
+            //{
+            //    error= "Race is required.";
+            //    return false;
+            //}
+
+            if (String.IsNullOrEmpty(Attributes))
+            {
+                error = "Attribute is required.";
+                return false;
+            }
+
+            error = null;
+            return true;
+        }
     }
 }
