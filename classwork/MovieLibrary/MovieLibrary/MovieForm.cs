@@ -61,7 +61,8 @@ namespace MovieLibrary.Winforms
 
             // Populate combo
             var genres = Genres.GetAll();
-            Items.Items.AddRange(genres);
+
+            ddlGenres.Items.AddRange(genres);
 
             if (Movie != null)
             {
@@ -72,7 +73,7 @@ namespace MovieLibrary.Winforms
                 chkIsClassic.Checked = Movie.IsClassic;
 
                 if (Movie.Genre != null)
-                    Items.SelectedText = Movie.GenreDescription;
+                    ddlGenres.SelectedText = Movie.Genre.Description;
             }
         }
 
@@ -96,7 +97,7 @@ namespace MovieLibrary.Winforms
             //if (ddlGenres.SelectedItem is Genre)              // Equivalent of as
             //    genre = (Genre)ddlGenres.SelectedItem;
 
-            if (Items.SelectedItem is Genre genre)        //Pattern match
+            if (ddlGenres.SelectedItem is Genre genre)         //Pattern match
                 movie.Genre = genre;
 
             return movie;
