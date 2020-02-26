@@ -31,10 +31,15 @@ namespace CharacterCreator.Winforms
 
         public Character Character { get; set; }
 
-        public Character character { get; set; }
+        private void OnCancel ( object sender, EventArgs e )
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
 
         private void OnOK ( object sender, EventArgs e )
         {
+            //TODO: vALIDATE
             var character = GetCharacter();
             if (!character.Validate(out var error))
             {
@@ -44,12 +49,6 @@ namespace CharacterCreator.Winforms
 
             Character = character;
             DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void OnCancel ( object sender, EventArgs e )
-        {
-            DialogResult = DialogResult.Cancel;
             Close();
         }
 
@@ -66,7 +65,11 @@ namespace CharacterCreator.Winforms
             if (Character != null)
             {
                 txtName.Text = Character.Name;
-                //ddlAttributes.Text = Character.Attributes;
+                txtStrength.Text = Character.Strength.ToString();
+                txtIntelligence.Text = Character.Intelligence.ToString();
+                txtWisdom.Text = Character.Wisdom.ToString();
+                txtDexterity.Text = Character.Dexterity.ToString();
+                txtConstitution.Text = Character.Constitution.ToString();
                 txtDescription.Text = Character.Description;
 
                 if (Character.Profession != null)
@@ -81,8 +84,13 @@ namespace CharacterCreator.Winforms
             var character = new Character();
 
             character.Name = txtName.Text?.Trim();
-            //character.Attributes = ddlAttributes;
+            character.Strength = GetAsInt32(txtStrength);
+            character.Intelligence = GetAsInt32(txtIntelligence);
+            character.Wisdom = GetAsInt32(txtWisdom);
+            character.Dexterity = GetAsInt32(txtDexterity);
+            character.Constitution = GetAsInt32(txtConstitution);
             character.Description = txtDescription.Text.Trim();
+
             if (ddlProfession.SelectedItem is Profession profession)        
                 character.Profession = profession;
             if (ddlRace.SelectedItem is Race race)
@@ -94,6 +102,22 @@ namespace CharacterCreator.Winforms
         void DisplayError ( string message )
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private int GetAsInt32 ( Control control )
+        {
+            return GetAsInt32(control, 0);
+        }
+
+        private int GetAsInt32 ( Control control, int emptyValue )
+        {
+            if (String.IsNullOrEmpty(control.Text))
+                return emptyValue;
+
+            if (Int32.TryParse(control.Text, out var result))
+                return result;
+
+            return -1;
         }
     }
 }

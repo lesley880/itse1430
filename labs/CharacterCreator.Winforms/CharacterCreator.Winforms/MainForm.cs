@@ -42,7 +42,43 @@ namespace CharacterCreator
                     e.Cancel = true;
         }
 
+        private void OnCharacterNew ( object sender, EventArgs e )
+        {
+            CharacterForm child = new CharacterForm();
+
+            if (child.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            //TODO: save the character
+            _character = child.Character;
+        }
+        private void OnCharacterEdit ( object sender, EventArgs e )
+        {
+            if (_character == null)
+                return;
+
+            CharacterForm child = new CharacterForm();
+            child.Character = _character;
+            if (child.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            //TODO Save the character
+            _character = child.Character;
+        }
+
         private Character _character;
+
+        private void OnCharacterDelete ( object sender, EventArgs e )
+        {
+            if (_character == null)     // Verify Character
+                return;
+
+            if (!DisplayConfirmation($"Are you sure you want to delete {_character.Name}?", "Delete"))
+                return;
+
+            //TODO: DELETE
+            _character = null;
+        }
 
         private void OnFileExit ( object sender, EventArgs e )
         {
@@ -53,40 +89,6 @@ namespace CharacterCreator
         {
             var about = new AboutBox();
             about.ShowDialog(this);
-        }
-
-        private void OnCharacterNew ( object sender, EventArgs e )
-        {
-            var myForm = new CharacterForm();
-            myForm.Show();
-        }
-
-        private void OnCharacterDelete ( object sender, EventArgs e )
-        {
-            // Verify Character
-            if (_character == null)
-                return;
-
-            // Confirm
-            if (!DisplayConfirmation($"Are you sure you want to delete {_character.Name}?", "Delete"))
-                return;
-
-            //TODO: DELETE
-            _character = null;
-        }
-
-        private void OnCharacterEdit ( object sender, EventArgs e )
-        {
-            if (_character == null)
-                return;
-
-            CharacterForm child = new CharacterForm();
-            child.character = _character;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            //TODO Save the character
-            _character = child.character;
         }
     }
 }
