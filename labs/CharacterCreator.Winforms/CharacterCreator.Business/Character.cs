@@ -19,15 +19,15 @@ namespace CharacterCreator.Business
         }
         private string _name;                    // field
 
-        public int Strength { get; set; }
+        public int Strength { get; set; } = 50;
 
-        public int Intelligence { get; set; }
+        public int Intelligence { get; set; } = 50;
 
-        public int Wisdom { get; set; }
+        public int Wisdom { get; set; } = 50;
 
-        public int Dexterity { get; set; }
+        public int Dexterity { get; set; } = 50;
 
-        public int Constitution { get; set; }
+        public int Constitution { get; set; } = 50;
 
         public string Description
         {
@@ -50,11 +50,11 @@ namespace CharacterCreator.Business
             //    return false;
             //}
 
-            //if (Strength <= 1 || Strength >= 100)
-            //{
-            //    error = "Strength must be between 1 and 100.";
-            //    return false;
-            //}
+            if (Strength < 1)
+            {
+                error = "Strength must be between 1 and 100.";
+                return false;
+            }
 
             //if (Intelligence <= 1 || Strength >= 100)
             //{
