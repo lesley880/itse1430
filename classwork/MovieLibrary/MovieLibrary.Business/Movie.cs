@@ -86,6 +86,11 @@ namespace MovieLibrary.Business
         //private int _id;                      // fake test code
         public int Id { get; }
 
+        public override string ToString ()
+        {
+            return Title;
+        }
+
         public bool Validate (out string error)
         {
             // title is required

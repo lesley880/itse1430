@@ -39,9 +39,6 @@ namespace MovieLibrary
             return result == DialogResult.OK;
         }
 
-        /// <summary>Displays an error message.</summary>
-        /// <param name= "message"Error to display></param>
-        /// 
         void DisplayError(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -53,7 +50,14 @@ namespace MovieLibrary
             //var newTitle = Text;
         }
 
-        void DisplayMovie(Movie movie)
+        protected override void OnLoad (EventArgs e)
+        {
+            base.OnLoad(e);
+
+            UpdateUI();
+        }
+
+        void DisplayMovie (Movie movie)
         {
             if (movie == null)
                 return;
@@ -64,55 +68,107 @@ namespace MovieLibrary
             movie = new Movie();
         }
 
-        protected override void OnFormClosing ( FormClosingEventArgs e )
-        {
-            base.OnFormClosing(e);
-
-            if (_movie != null)
-                if (!DisplayConfirmation("Are you sure you want to close?", "Close"))
-                    e.Cancel = true;
-        }
-
+       
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             MovieForm child = new MovieForm();
 
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
+
             //TODO Save the movie
-            _movie = child.Movie;
-            //show child
+            AddMovie(child.Movie);
+            UpdateUI();
+        }
+
+        private void UpdateUI ()
+        {
+            listMovies.Items.Clear();
+            var movies = GetMovies();
+            foreach (var movie in movies)
+            {
+                if(movie != null)
+                listMovies.Items.Add(movie);
+            }
+        }
+
+        private void AddMovie ( Movie movie )
+        {
+            for (var index = 0; index < _movies.Length; ++index)
+            {
+                if (_movies[index] == null)
+                {
+                    _movies[index] = movie;
+                    break;
+                }
+            }
+        }
+
+        private Movie[] GetMovies ()
+        {
+            return _movies;
+        }
+
+        private Movie GetSelectedMovie ()
+        {
+            return listMovies.SelectedItem as Movie;
+        }
+
+        private void UpdateMovie(Movie oldMovie, Movie newMovie)
+        {
+            for (var index = 0; index < _movies.Length; ++index)
+            {
+                if(_movies[index] == oldMovie)
+                {
+                    _movies[index] = newMovie;
+                    break;
+                }
+            }
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
         {
             // Verify movie
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
 
             MovieForm child = new MovieForm();
-            child.Movie = _movie;
+            child.Movie = movie;
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
             //TODO Save the movie
-            _movie = child.Movie;
+            UpdateMovie(movie, child.Movie);
+            UpdateUI();
         }
-
-        private Movie _movie;
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             // Verify movie
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
 
             // Confirm
-            if (!DisplayConfirmation($"Are you sure you want to delete {_movie.Title}?", "Delete"))
+            if (!DisplayConfirmation($"Are you sure you want to delete {movie.Title}?", "Delete"))
                 return;
 
             //TODO: DELETE
-            _movie = null;
+            DeleteMovie(movie);
+            UpdateUI();
+        }
+
+        private void DeleteMovie (Movie movie)
+        {
+            for (var index = 0; index < _movies.Length; ++index)
+            {
+                if (_movies[index] == movie)
+                {
+                    _movies[index] = null;
+                    break;
+                }
+            }
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -125,5 +181,8 @@ namespace MovieLibrary
             var about = new AboutBox();
             about.ShowDialog(this);
         }
+
+        //private Movie _movie;
+        private Movie[] _movies = new Movie[100];
     }
 }
