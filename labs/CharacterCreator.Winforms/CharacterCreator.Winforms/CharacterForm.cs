@@ -65,11 +65,11 @@ namespace CharacterCreator.Winforms
             if (Character != null)
             {
                 txtName.Text = Character.Name;
-                txtStrength.Text = Character.Strength.ToString();
-                txtIntelligence.Text = Character.Intelligence.ToString();
-                txtWisdom.Text = Character.Wisdom.ToString();
-                txtDexterity.Text = Character.Dexterity.ToString();
-                txtConstitution.Text = Character.Constitution.ToString();
+                Strength.Text = Character.Strength.ToString();
+                txt.Text = Character.Intelligence.ToString();
+                Wisdom.Text = Character.Wisdom.ToString();
+                Dexterity.Text = Character.Dexterity.ToString();
+                txtC.Text = Character.Constitution.ToString();
                 txtDescription.Text = Character.Description;
 
                 if (Character.Profession != null)
@@ -84,11 +84,11 @@ namespace CharacterCreator.Winforms
             var character = new Character();
 
             character.Name = txtName.Text?.Trim();
-            character.Strength = GetAsInt32(txtStrength);
-            character.Intelligence = GetAsInt32(txtIntelligence);
-            character.Wisdom = GetAsInt32(txtWisdom);
-            character.Dexterity = GetAsInt32(txtDexterity);
-            character.Constitution = GetAsInt32(txtConstitution);
+            character.Strength = GetAsInt32(Strength);
+            character.Intelligence = GetAsInt32(txt);
+            character.Wisdom = GetAsInt32(Wisdom);
+            character.Dexterity = GetAsInt32(Dexterity);
+            character.Constitution = GetAsInt32(txtC);
             character.Description = txtDescription.Text.Trim();
 
             if (ddlProfession.SelectedItem is Profession profession)        

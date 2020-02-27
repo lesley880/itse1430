@@ -39,16 +39,16 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.txtStrength = new System.Windows.Forms.Label();
-            this.txtIntelligence = new System.Windows.Forms.Label();
-            this.txtWisdom = new System.Windows.Forms.Label();
-            this.txtDexterity = new System.Windows.Forms.Label();
-            this.txtConstitution = new System.Windows.Forms.Label();
+            this.txtStrength = new System.Windows.Forms.TextBox();
+            this.txtIntelligence = new System.Windows.Forms.TextBox();
+            this.txtWisdom = new System.Windows.Forms.TextBox();
+            this.txtDexterity = new System.Windows.Forms.TextBox();
+            this.txtConstitution = new System.Windows.Forms.TextBox();
+            this.Strength = new System.Windows.Forms.Label();
+            this.txt = new System.Windows.Forms.Label();
+            this.Wisdom = new System.Windows.Forms.Label();
+            this.Dexterity = new System.Windows.Forms.Label();
+            this.txtC = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Title1
@@ -156,101 +156,101 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.OnCancel);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(167, 155);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(37, 22);
-            this.textBox1.TabIndex = 12;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(167, 184);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(37, 22);
-            this.textBox2.TabIndex = 13;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(167, 212);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(37, 22);
-            this.textBox3.TabIndex = 14;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(167, 240);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(37, 22);
-            this.textBox4.TabIndex = 15;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(167, 268);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(37, 22);
-            this.textBox5.TabIndex = 16;
-            // 
             // txtStrength
             // 
-            this.txtStrength.AutoSize = true;
-            this.txtStrength.Location = new System.Drawing.Point(90, 158);
+            this.txtStrength.Location = new System.Drawing.Point(167, 155);
             this.txtStrength.Name = "txtStrength";
-            this.txtStrength.Size = new System.Drawing.Size(62, 17);
-            this.txtStrength.TabIndex = 17;
-            this.txtStrength.Text = "Strength";
+            this.txtStrength.Size = new System.Drawing.Size(37, 22);
+            this.txtStrength.TabIndex = 12;
             // 
             // txtIntelligence
             // 
-            this.txtIntelligence.AutoSize = true;
-            this.txtIntelligence.Location = new System.Drawing.Point(73, 187);
+            this.txtIntelligence.Location = new System.Drawing.Point(167, 184);
             this.txtIntelligence.Name = "txtIntelligence";
-            this.txtIntelligence.Size = new System.Drawing.Size(79, 17);
-            this.txtIntelligence.TabIndex = 18;
-            this.txtIntelligence.Text = "Intelligence";
+            this.txtIntelligence.Size = new System.Drawing.Size(37, 22);
+            this.txtIntelligence.TabIndex = 13;
             // 
             // txtWisdom
             // 
-            this.txtWisdom.AutoSize = true;
-            this.txtWisdom.Location = new System.Drawing.Point(94, 215);
+            this.txtWisdom.Location = new System.Drawing.Point(167, 212);
             this.txtWisdom.Name = "txtWisdom";
-            this.txtWisdom.Size = new System.Drawing.Size(58, 17);
-            this.txtWisdom.TabIndex = 19;
-            this.txtWisdom.Text = "Wisdom";
+            this.txtWisdom.Size = new System.Drawing.Size(37, 22);
+            this.txtWisdom.TabIndex = 14;
             // 
             // txtDexterity
             // 
-            this.txtDexterity.AutoSize = true;
-            this.txtDexterity.Location = new System.Drawing.Point(89, 243);
+            this.txtDexterity.Location = new System.Drawing.Point(167, 240);
             this.txtDexterity.Name = "txtDexterity";
-            this.txtDexterity.Size = new System.Drawing.Size(63, 17);
-            this.txtDexterity.TabIndex = 20;
-            this.txtDexterity.Text = "Dexterity";
+            this.txtDexterity.Size = new System.Drawing.Size(37, 22);
+            this.txtDexterity.TabIndex = 15;
             // 
             // txtConstitution
             // 
-            this.txtConstitution.AutoSize = true;
-            this.txtConstitution.Location = new System.Drawing.Point(70, 271);
+            this.txtConstitution.Location = new System.Drawing.Point(167, 268);
             this.txtConstitution.Name = "txtConstitution";
-            this.txtConstitution.Size = new System.Drawing.Size(82, 17);
-            this.txtConstitution.TabIndex = 21;
-            this.txtConstitution.Text = "Constitution";
+            this.txtConstitution.Size = new System.Drawing.Size(37, 22);
+            this.txtConstitution.TabIndex = 16;
+            // 
+            // Strength
+            // 
+            this.Strength.AutoSize = true;
+            this.Strength.Location = new System.Drawing.Point(90, 158);
+            this.Strength.Name = "Strength";
+            this.Strength.Size = new System.Drawing.Size(62, 17);
+            this.Strength.TabIndex = 17;
+            this.Strength.Text = "Strength";
+            // 
+            // txt
+            // 
+            this.txt.AutoSize = true;
+            this.txt.Location = new System.Drawing.Point(73, 187);
+            this.txt.Name = "txt";
+            this.txt.Size = new System.Drawing.Size(79, 17);
+            this.txt.TabIndex = 18;
+            this.txt.Text = "Intelligence";
+            // 
+            // Wisdom
+            // 
+            this.Wisdom.AutoSize = true;
+            this.Wisdom.Location = new System.Drawing.Point(94, 215);
+            this.Wisdom.Name = "Wisdom";
+            this.Wisdom.Size = new System.Drawing.Size(58, 17);
+            this.Wisdom.TabIndex = 19;
+            this.Wisdom.Text = "Wisdom";
+            // 
+            // Dexterity
+            // 
+            this.Dexterity.AutoSize = true;
+            this.Dexterity.Location = new System.Drawing.Point(89, 243);
+            this.Dexterity.Name = "Dexterity";
+            this.Dexterity.Size = new System.Drawing.Size(63, 17);
+            this.Dexterity.TabIndex = 20;
+            this.Dexterity.Text = "Dexterity";
+            // 
+            // txtC
+            // 
+            this.txtC.AutoSize = true;
+            this.txtC.Location = new System.Drawing.Point(70, 271);
+            this.txtC.Name = "txtC";
+            this.txtC.Size = new System.Drawing.Size(82, 17);
+            this.txtC.TabIndex = 21;
+            this.txtC.Text = "Constitution";
             // 
             // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 472);
+            this.Controls.Add(this.txtC);
+            this.Controls.Add(this.Dexterity);
+            this.Controls.Add(this.Wisdom);
+            this.Controls.Add(this.txt);
+            this.Controls.Add(this.Strength);
             this.Controls.Add(this.txtConstitution);
             this.Controls.Add(this.txtDexterity);
             this.Controls.Add(this.txtWisdom);
             this.Controls.Add(this.txtIntelligence);
             this.Controls.Add(this.txtStrength);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtDescription);
@@ -284,15 +284,15 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label txtStrength;
-        private System.Windows.Forms.Label txtIntelligence;
-        private System.Windows.Forms.Label txtWisdom;
-        private System.Windows.Forms.Label txtDexterity;
-        private System.Windows.Forms.Label txtConstitution;
+        private System.Windows.Forms.TextBox txtStrength;
+        private System.Windows.Forms.TextBox txtIntelligence;
+        private System.Windows.Forms.TextBox txtWisdom;
+        private System.Windows.Forms.TextBox txtDexterity;
+        private System.Windows.Forms.TextBox txtConstitution;
+        private System.Windows.Forms.Label Strength;
+        private System.Windows.Forms.Label txt;
+        private System.Windows.Forms.Label Wisdom;
+        private System.Windows.Forms.Label Dexterity;
+        private System.Windows.Forms.Label txtC;
     }
 }

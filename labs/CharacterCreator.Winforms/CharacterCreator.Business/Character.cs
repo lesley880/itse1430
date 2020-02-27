@@ -46,39 +46,39 @@ namespace CharacterCreator.Business
 
             //if (String.IsNullOrEmpty(Race))
             //{
-            //    error= "Race is required.";
+            //    error = "Race is required.";
             //    return false;
             //}
 
-            if (Strength < 1)
+            if (Strength < 1 || Strength > 100)
             {
                 error = "Strength must be between 1 and 100.";
                 return false;
             }
 
-            //if (Intelligence <= 1 || Strength >= 100)
-            //{
-            //    error = "Intelligence must be between 1 and 100.";
-            //    return false;
-            //}
+            if (Intelligence <= 1 || Intelligence >= 100)
+            {
+                error = "Intelligence must be between 1 and 100.";
+                return false;
+            }
 
-            //if (Wisdom <= 1 || Strength >= 100)
-            //{
-            //    error = "Wisdom must be between 1 and 100.";
-            //    return false;
-            //}
+            if (Wisdom <= 1 || Wisdom >= 100)
+            {
+                error = "Wisdom must be between 1 and 100.";
+                return false;
+            }
 
-            //if (Dexterity <= 1 || Strength >= 100)
-            //{
-            //    error = "Dexterity must be between 1 and 100.";
-            //    return false;
-            //}
+            if (Dexterity <= 1 || Dexterity >= 100)
+            {
+                error = "Dexterity must be between 1 and 100.";
+                return false;
+            }
 
-            //if (Constitution <= 1 || Strength >= 100)
-            //{
-            //    error = "Constitution must be between 1 and 100.";
-            //    return false;
-            //}
+            if (Constitution <= 1 || Constitution >= 100)
+            {
+                error = "Constitution must be between 1 and 100.";
+                return false;
+            }
 
             //if (IsNullOrEmpty(Profession))
             //{
