@@ -56,25 +56,25 @@ namespace CharacterCreator.Business
                 return false;
             }
 
-            if (Intelligence <= 1 || Intelligence >= 100)
+            if (Intelligence < 1 || Intelligence > 100)
             {
                 error = "Intelligence must be between 1 and 100.";
                 return false;
             }
 
-            if (Wisdom <= 1 || Wisdom >= 100)
+            if (Wisdom < 1 || Wisdom > 100)
             {
                 error = "Wisdom must be between 1 and 100.";
                 return false;
             }
 
-            if (Dexterity <= 1 || Dexterity >= 100)
+            if (Dexterity < 1 || Dexterity > 100)
             {
                 error = "Dexterity must be between 1 and 100.";
                 return false;
             }
 
-            if (Constitution <= 1 || Constitution >= 100)
+            if (Constitution < 1 || Constitution > 100)
             {
                 error = "Constitution must be between 1 and 100.";
                 return false;
