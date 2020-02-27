@@ -44,11 +44,17 @@ namespace CharacterCreator.Business
                 return false;
             }
 
-            //if (String.IsNullOrEmpty(Race))
-            //{
-            //    error = "Race is required.";
-            //    return false;
-            //}
+            if (Profession == null)
+            {
+                error = "Profession is required.";
+                return false;
+            }
+
+            if (Race == null)
+            {
+                error = "Race is required.";
+                return false;
+            }
 
             if (Strength < 1 || Strength > 100)
             {
@@ -79,12 +85,6 @@ namespace CharacterCreator.Business
                 error = "Constitution must be between 1 and 100.";
                 return false;
             }
-
-            //if (IsNullOrEmpty(Profession))
-            //{
-            //    error = "Profession is required.";
-            //    return false;
-            //}
 
             error = null;
             return true;
