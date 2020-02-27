@@ -73,9 +73,9 @@ namespace CharacterCreator.Winforms
                 txtDescription.Text = Character.Description;
 
                 if (Character.Profession != null)
-                    ddlProfession.SelectedText = Character.Profession.Description;
+                    ddlProfession.Text = Character.Profession.Description;
                 if (Character.Race != null)
-                    ddlRace.SelectedText = Character.Profession.Description;
+                    ddlRace.Text = Character.Profession.Description;
             };
         }
 
