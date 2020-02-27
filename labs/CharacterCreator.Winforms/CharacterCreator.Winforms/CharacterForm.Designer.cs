@@ -213,8 +213,9 @@
             this.Strength.Location = new System.Drawing.Point(68, 128);
             this.Strength.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Strength.Name = "Strength";
-            this.Strength.Size = new System.Drawing.Size(0, 13);
+            this.Strength.Size = new System.Drawing.Size(47, 13);
             this.Strength.TabIndex = 17;
+            this.Strength.Text = "Strength";
             // 
             // txt
             // 
