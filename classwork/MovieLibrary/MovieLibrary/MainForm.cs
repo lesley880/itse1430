@@ -77,53 +77,23 @@ namespace MovieLibrary
                 return;
 
             //TODO Save the movie
-            AddMovie(child.Movie);
+            _movies.Add(child.Movie);
             UpdateUI();
         }
 
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
-            var movies = GetMovies();
+            var movies = _movies.GetAll();
             foreach (var movie in movies)
             {
-                if(movie != null)
                 listMovies.Items.Add(movie);
             }
-        }
-
-        private void AddMovie ( Movie movie )
-        {
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == null)
-                {
-                    _movies[index] = movie;
-                    break;
-                }
-            }
-        }
-
-        private Movie[] GetMovies ()
-        {
-            return _movies;
         }
 
         private Movie GetSelectedMovie ()
         {
             return listMovies.SelectedItem as Movie;
-        }
-
-        private void UpdateMovie(Movie oldMovie, Movie newMovie)
-        {
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if(_movies[index] == oldMovie)
-                {
-                    _movies[index] = newMovie;
-                    break;
-                }
-            }
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -139,7 +109,7 @@ namespace MovieLibrary
                 return;
 
             //TODO Save the movie
-            UpdateMovie(movie, child.Movie);
+            _movies.Update(movie, child.Movie);
             UpdateUI();
         }
 
@@ -155,20 +125,8 @@ namespace MovieLibrary
                 return;
 
             //TODO: DELETE
-            DeleteMovie(movie);
+            _movies.Delete(movie);
             UpdateUI();
-        }
-
-        private void DeleteMovie (Movie movie)
-        {
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == movie)
-                {
-                    _movies[index] = null;
-                    break;
-                }
-            }
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -182,7 +140,6 @@ namespace MovieLibrary
             about.ShowDialog(this);
         }
 
-        //private Movie _movie;
-        private Movie[] _movies = new Movie[100];
+        private MovieDatabase _movies = new MovieDatabase();
     }
 }
