@@ -18,8 +18,10 @@ namespace MovieLibrary
         {
             InitializeComponent();
 
+            _movies = new MemoryMovieDatabase();
+
             // MovieLibrary.Business.Movie;
-            var movie = new Movie();
+            //var movie = new Movie();
 
             //movie.title = "Jaws";
             //movie.description = movie.title;
@@ -31,6 +33,7 @@ namespace MovieLibrary
 
             //DisplayConfirmation("Are you sure?", "Start");
         }
+
 
         private bool DisplayConfirmation(string message, string title)
         {
@@ -54,6 +57,8 @@ namespace MovieLibrary
         {
             base.OnLoad(e);
 
+            new SeedDatabase().SeedIfEmpty(_movies);
+
             UpdateUI();
         }
 
@@ -72,13 +77,20 @@ namespace MovieLibrary
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             MovieForm child = new MovieForm();
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                
+                var movie = _movies.Add(child.Movie);
+                if (movie != null)
+                {
+                    UpdateUI();
+                    return;
+                }
 
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            //TODO Save the movie
-            _movies.Add(child.Movie);
-            UpdateUI();
+                DisplayError("Add failed");
+            } while (true);
         }
 
         private void UpdateUI ()
@@ -98,19 +110,28 @@ namespace MovieLibrary
 
         private void OnMovieEdit ( object sender, EventArgs e )
         {
-            // Verify movie
+            //Verify movie
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;
 
-            MovieForm child = new MovieForm();
+            var child = new MovieForm();
             child.Movie = movie;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //TODO Save the movie
-            _movies.Update(movie, child.Movie);
-            UpdateUI();
+                // Save the movie
+                var error = _movies.Update(movie.Id, child.Movie);
+                if (String.IsNullOrEmpty(error))
+                {
+                    UpdateUI();
+                    return;
+                };
+
+                DisplayError(error);
+            } while (true);
         }
 
         private void OnMovieDelete ( object sender, EventArgs e )
@@ -125,7 +146,7 @@ namespace MovieLibrary
                 return;
 
             //TODO: DELETE
-            _movies.Delete(movie);
+            _movies.Delete(movie.Id);
             UpdateUI();
         }
 
@@ -139,7 +160,7 @@ namespace MovieLibrary
             var about = new AboutBox();
             about.ShowDialog(this);
         }
+        private readonly IMovieDatabase _movies;
 
-        private MovieDatabase _movies = new MovieDatabase();
     }
 }

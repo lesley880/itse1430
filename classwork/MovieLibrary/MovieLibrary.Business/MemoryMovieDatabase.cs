@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary.Business
 {
-    public class MovieDatabase
+    public class MemoryMovieDatabase : IMovieDatabase
     {
         public Movie Add ( Movie movie )
         {
@@ -59,44 +59,88 @@ namespace MovieLibrary.Business
             //}
         }
 
+        public Movie Get (int id)
+        {
+            //TODO: error
+            if (id <= 0)
+                return null;
+
+            var movie = FindById(id);
+            if (movie == null)
+                return null;
+
+            return CloneMovie(movie);
+        }
+
         public Movie[] GetAll ()
         {
             //clone objects
             var items = new Movie[_movies.Count];
             var index = 0;
-            foreach(var movie in _movies)
+            foreach (var movie in _movies)
             {
                 items[index++] = CloneMovie(movie);
             }
             return items;
         }
 
-        public void Update ( int id, Movie newMovie )
+        public string Update ( int id, Movie movie )
         {
             //TODO: Validate
-            //TODO: Movie Names must be unique
-            //TODO: Clone movie to store
-            for (var index = 0; index < _movies.Count; ++index)
-            {
-                if (_movies[index]?.Id == id)
-                {
-                    _movies[index] = newMovie;
-                    break;
-                }
-            }
+            if (movie == null)
+                return "Movie is null";
+            if (!movie.Validate(out var error))
+                return error;
+            if (id <= 0)
+                return "ID is invalid.";
+
+            var exsisting = FindById(id);
+            if (exsisting == null)
+                return "Movie not found";
+
+            // Movie Names must be unique
+            var sameName = FindByTitle(movie.Title);
+            if (sameName != null  && sameName.Id != id)
+                return "Movie must be unique.";
+
+            // Update
+            CopyMovie(exsisting, movie, false);
+
+            return null;
         }
 
-        private Movie CloneMovie (Movie movie)
-        {   // object initializer syntax
-            return new Movie() {
-                Id = movie.Id,
-                Title = movie.Title,
-                Description = movie.Description,
-                Genre = new Genre(movie.Genre.Description),
-                IsClassic = movie.IsClassic,
-                ReleaseYear = movie.ReleaseYear,
-                RunLength = movie.RunLength,
-            };
+        private Movie CloneMovie ( Movie movie )
+        {
+            var item = new Movie();
+            CopyMovie(item, movie, true);
+
+            return item;
+
+            // object initializer syntax
+            //return new Movie() {
+            //    Id = movie.Id,
+            //    Title = movie.Title,
+            //    Description = movie.Description,
+            //    Genre = new Genre(movie.Genre.Description),
+            //    IsClassic = movie.IsClassic,
+            //    ReleaseYear = movie.ReleaseYear,
+            //    RunLength = movie.RunLength,
+            //};
+        }
+
+        private void CopyMovie ( Movie target, Movie source, bool includeId )
+        {
+            if (includeId)
+                target.Id = source.Id;
+            target.Title = source.Title;
+            target.Description = source.Description;
+            if (source.Genre != null)
+                target.Genre = new Genre(source.Genre.Description);
+            else
+                target.Genre = null;
+            target.IsClassic = source.IsClassic;
+            target.ReleaseYear = source.ReleaseYear;
+            target.RunLength = source.RunLength;
         }
 
         private Movie FindByTitle ( string title )
