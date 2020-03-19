@@ -75,7 +75,7 @@ namespace CharacterCreator.Winforms
                 if (Character.Profession != null)
                     ddlProfession.Text = Character.Profession.Description;
                 if (Character.Race != null)
-                    ddlRace.Text = Character.Profession.Description;
+                    ddlRace.Text = Character.Race.Description;
             };
         }
 
@@ -102,11 +102,6 @@ namespace CharacterCreator.Winforms
         void DisplayError ( string message )
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private int GetAsInt32 ( Control control )
-        {
-            return GetAsInt32(control, 0);
         }
 
         private int GetAsInt32 ( Control control, int emptyValue )
