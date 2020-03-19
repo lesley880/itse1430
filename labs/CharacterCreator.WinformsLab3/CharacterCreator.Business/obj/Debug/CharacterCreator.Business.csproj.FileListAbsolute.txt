@@ -1,0 +1,5 @@
+C:\Users\13612\OneDrive\Documents\CharacterCreatorpt3\labs\CharacterCreator.Winforms\CharacterCreator.Business\bin\Debug\CharacterCreator.Business.dll
+C:\Users\13612\OneDrive\Documents\CharacterCreatorpt3\labs\CharacterCreator.Winforms\CharacterCreator.Business\bin\Debug\CharacterCreator.Business.pdb
+C:\Users\13612\OneDrive\Documents\CharacterCreatorpt3\labs\CharacterCreator.Winforms\CharacterCreator.Business\obj\Debug\CharacterCreator.Business.csprojAssemblyReference.cache
+C:\Users\13612\OneDrive\Documents\CharacterCreatorpt3\labs\CharacterCreator.Winforms\CharacterCreator.Business\obj\Debug\CharacterCreator.Business.dll
+C:\Users\13612\OneDrive\Documents\CharacterCreatorpt3\labs\CharacterCreator.Winforms\CharacterCreator.Business\obj\Debug\CharacterCreator.Business.pdb
