@@ -47,11 +47,15 @@ namespace MovieLibrary.Winforms
 
             //TODO: Validation and error reporting.
             var movie = GetMovie();
-            if (!movie.Validate(out var error))
+
+            var errors = new ObjectValidator().Validate(movie);
+            if (errors.Any())
+
+            //if (!movie.Validate(out var error))
             {
-                DisplayError(error);
+                DisplayError("Error");
                 return;
-            }
+            };
 
             Movie = movie;
             DialogResult = DialogResult.OK;
