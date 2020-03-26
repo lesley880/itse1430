@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MovieLibrary.Business;
+using MovieLibrary.Business.Memory;
 using MovieLibrary.Winforms;
 
 namespace MovieLibrary
@@ -57,7 +58,10 @@ namespace MovieLibrary
         {
             base.OnLoad(e);
 
-            new SeedDatabase().SeedIfEmpty(_movies);
+           // SeedDatabase.SeedIfEmpty(_movies);
+
+            // call extention method as though it is an instance; discover it.
+            _movies.SeedIfEmpty();
 
             UpdateUI();
         }
@@ -96,6 +100,7 @@ namespace MovieLibrary
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
+
             var movies = _movies.GetAll();
             foreach (var movie in movies)
             {
