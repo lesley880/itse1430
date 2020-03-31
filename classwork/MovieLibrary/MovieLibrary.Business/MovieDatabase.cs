@@ -50,10 +50,7 @@ namespace MovieLibrary.Business
 
         protected abstract Movie GetCore ( int id );
 
-        public IEnumerable<Movie> GetAll ()
-        {
-            return GetAllCore();
-        }
+        public IEnumerable<Movie> GetAll () => GetAllCore() ?? Enumerable.Empty <Movie>(); 
 
         protected abstract IEnumerable<Movie> GetAllCore();
 

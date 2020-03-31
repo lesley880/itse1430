@@ -17,13 +17,11 @@ namespace MovieLibrary.Business
         /// <summary>Gets or sets the title.</summary>
         public string Title
         {
-            //Never return null from a string property, always return empty string
-            get {
-                return _title ?? "";
-            }
+            // get { return _title ?? ""; }
+            get => _title ?? "";            // Expression body
 
-            //Use null conditional operator if instance value can be null
-            set { _title = value?.Trim(); }
+            // set { _title = value?.Trim(); }
+            set => _title = value?.Trim();  // Expression body
         }
 
         /// <summary>Gets or sets the run length in minutes.</summary>        
@@ -32,8 +30,11 @@ namespace MovieLibrary.Business
         /// <summary>Gets or sets the description.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value?.Trim(); }
+            //get { return _description ?? ""; }
+            //set { _description = value?.Trim(); }
+
+            get => _description ?? ""; 
+            set => _description = value?.Trim();
         }
 
         /// <summary>Gets or sets the release year.</summary>
@@ -44,15 +45,17 @@ namespace MovieLibrary.Business
         public bool IsClassic { get; set; }
 
         //Calculated property, no setter
-        public bool IsBlackAndWhite
-        {
-            get { return ReleaseYear <= 1930; }
-        }
+        public bool IsBlackAndWhite => ReleaseYear <= 1930;
+        //{
+        //    // get { return ReleaseYear <= 1930; }
 
-        public override string ToString ()
-        {
-            return Title;
-        }
+        //    get => ReleaseYear <= 1930;
+        //}
+
+        public override string ToString () => Title;
+        //{
+        //    return Title;
+        //}
 
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {

@@ -35,7 +35,6 @@ namespace MovieLibrary
             //DisplayConfirmation("Are you sure?", "Start");
         }
 
-
         private bool DisplayConfirmation(string message, string title)
         {
             var result = MessageBox.Show(message, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -57,7 +56,7 @@ namespace MovieLibrary
         protected override void OnLoad (EventArgs e)
         {
             base.OnLoad(e);
-
+            
            // SeedDatabase.SeedIfEmpty(_movies);
 
             // call extention method as though it is an instance; discover it.
@@ -97,20 +96,31 @@ namespace MovieLibrary
             } while (true);
         }
 
+        private string SortByTitle ( Movie movie ) => movie.Title;
+        private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
+
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
 
-            var movies = _movies.GetAll();
-            foreach (var movie in movies)
-            {
-                listMovies.Items.Add(movie);
-            }
+            var movies = _movies.GetAll()
+                                .OrderBy(SortByTitle)
+                                .ThenBy(SortByReleaseYear);
+
+            listMovies.Items.AddRange(movies.ToArray());
+            //foreach (var movie in movies)
+            //{
+            //    listMovies.Items.Add(movie);
+            //}
         }
 
         private Movie GetSelectedMovie ()
         {
-            return listMovies.SelectedItem as Movie;
+            // preferred
+            //return listMovies.SelectedItem as Movie;
+
+            var selectedItems = listMovies.SelectedItems.OfType<Movie>();
+            return selectedItems.FirstOrDefault();
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
