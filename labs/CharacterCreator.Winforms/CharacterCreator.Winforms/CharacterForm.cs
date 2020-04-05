@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CharacterCreator.Business;
 
+/*
+ * Lesley Reller
+ * ITSE 1430
+ * 03/26/2020
+ */
+
 namespace CharacterCreator.Winforms
 {
     public partial class CharacterForm : Form
@@ -39,11 +45,16 @@ namespace CharacterCreator.Winforms
 
         private void OnOK ( object sender, EventArgs e )
         {
-            //TODO: vALIDATE
+            if (!ValidateChildren())
+                return;
+
+            //TODO: vALIDATE and error reporting
             var character = GetCharacter();
-            if (!character.Validate(out var error))
+            var errors = ObjectValidator.Validate(character);
+
+            if (errors.Any())
             {
-                DisplayError(error);
+                DisplayError("Error");
                 return;
             }
 
@@ -113,6 +124,78 @@ namespace CharacterCreator.Winforms
                 return result;
 
             return -1;
+        }
+
+        private void OnValidateName ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                _errors.SetError(control, "Name is required.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateStrength ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Must be between 1 and 50.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateIntelligence ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Must be between 1 and 50.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateWisdom ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Must be between 1 and 50.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateDexterity ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Must be between 1 and 50.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateConstitution ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0 || value > 100)
+            {
+                _errors.SetError(control, "Must be between 1 and 50.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
         }
     }
 }

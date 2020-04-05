@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * Lesley Reller
+ * ITSE 1430
+ * 03/10/2020
+ */
+
 namespace CharacterCreator.Business
 {
     public class Profession

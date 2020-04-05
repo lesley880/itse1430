@@ -10,6 +10,12 @@ using System.Windows.Forms;
 using CharacterCreator.Business;
 using CharacterCreator.Winforms;
 
+/*
+ * Lesley Reller
+ * ITSE 1430
+ * 03/26/2020
+ */
+
 namespace CharacterCreator
 {
     public partial class MainForm : Form
@@ -18,7 +24,7 @@ namespace CharacterCreator
         {
             InitializeComponent();
 
-            var character = new Character();
+            _characters = new MemoryCharacterDatabase();
         }
 
         private bool DisplayConfirmation ( string message, string name )
@@ -33,51 +39,91 @@ namespace CharacterCreator
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        protected override void OnFormClosing ( FormClosingEventArgs e )
+        protected override void OnLoad ( EventArgs e )
         {
-            base.OnFormClosing(e);
+            base.OnLoad(e);
 
-            if (_character != null)
-                if (!DisplayConfirmation("Are you sure you want to close?", "Close"))
-                    e.Cancel = true;
+            _characters.SeedIfEmpty();
+
+            UpdateUI();
         }
 
         private void OnCharacterNew ( object sender, EventArgs e )
         {
             CharacterForm child = new CharacterForm();
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+               
+                var movie = _characters.Add(child.Character);
+                if (movie != null)
+                {
+                    UpdateUI();
+                    return;
+                }
 
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            //TODO: save the character
-            _character = child.Character;
+                DisplayError("Add failed");
+            } while (true);
         }
+
+        private void UpdateUI ()
+        {
+            listCharacters.Items.Clear();
+
+            var characters = from character in _characters.GetAll()     // Linq method
+                             where character.Id > 0
+                             orderby character.Name descending
+                             select character;
+
+            listCharacters.Items.AddRange(characters.ToArray());
+        }
+
+        private Character GetSelectedCharacter ()
+        {
+            return listCharacters.SelectedItem as Character;
+        }
+
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
-            if (_character == null)
+            var character = GetSelectedCharacter();
+            if (character == null)
                 return;
 
-            CharacterForm child = new CharacterForm();
-            child.Character = _character;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            var child = new CharacterForm();
+            child.Character = character;
 
-            //TODO Save the character
-            _character = child.Character;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                // Save
+
+                var error = _characters.Update(character.Id, child.Character);
+                if (String.IsNullOrEmpty(error))
+                {
+                    UpdateUI();
+                    return;
+                };
+
+                DisplayError(error);
+            } while (true);
         }
-
-        private Character _character;
 
         private void OnCharacterDelete ( object sender, EventArgs e )
         {
-            if (_character == null)     // Verify Character
+            var character = GetSelectedCharacter();
+            if (character == null)
                 return;
 
-            if (!DisplayConfirmation($"Are you sure you want to delete {_character.Name}?", "Delete"))
+            // Confirm
+            if (!DisplayConfirmation($"Are you sure you want to delete {character.Name}?", "Delete"))
                 return;
 
             //TODO: DELETE
-            _character = null;
+            _characters.Delete(character.Id);
+            UpdateUI();
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -90,5 +136,6 @@ namespace CharacterCreator
             var about = new AboutBox();
             about.ShowDialog(this);
         }
+        private readonly ICharacterDatabase _characters;
     }
 }

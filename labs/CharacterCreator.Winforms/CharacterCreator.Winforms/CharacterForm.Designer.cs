@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent ()
         {
+            this.components = new System.ComponentModel.Container();
             this.Title1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,55 +50,52 @@
             this.Wisdom = new System.Windows.Forms.Label();
             this.Dexterity = new System.Windows.Forms.Label();
             this.txtC = new System.Windows.Forms.Label();
+            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
             this.SuspendLayout();
             // 
             // Title1
             // 
             this.Title1.AutoSize = true;
-            this.Title1.Location = new System.Drawing.Point(32, 24);
-            this.Title1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Title1.Location = new System.Drawing.Point(43, 30);
             this.Title1.Name = "Title1";
-            this.Title1.Size = new System.Drawing.Size(35, 13);
+            this.Title1.Size = new System.Drawing.Size(45, 17);
             this.Title1.TabIndex = 0;
             this.Title1.Text = "Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 47);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(12, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.Size = new System.Drawing.Size(75, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Profession";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 72);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(45, 89);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(41, 17);
             this.label3.TabIndex = 2;
             this.label3.Text = "Race";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(91, 102);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(121, 126);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 13);
+            this.label4.Size = new System.Drawing.Size(68, 17);
             this.label4.TabIndex = 3;
             this.label4.Text = "Attributes";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 251);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(8, 309);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.Size = new System.Drawing.Size(79, 17);
             this.label5.TabIndex = 4;
             this.label5.Text = "Description";
             // 
@@ -105,30 +103,30 @@
             // 
             this.ddlProfession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlProfession.FormattingEnabled = true;
-            this.ddlProfession.Location = new System.Drawing.Point(70, 45);
-            this.ddlProfession.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ddlProfession.Location = new System.Drawing.Point(93, 55);
+            this.ddlProfession.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ddlProfession.Name = "ddlProfession";
-            this.ddlProfession.Size = new System.Drawing.Size(92, 21);
+            this.ddlProfession.Size = new System.Drawing.Size(121, 24);
             this.ddlProfession.TabIndex = 5;
             // 
             // ddlRace
             // 
             this.ddlRace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlRace.FormattingEnabled = true;
-            this.ddlRace.Location = new System.Drawing.Point(70, 69);
-            this.ddlRace.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ddlRace.Location = new System.Drawing.Point(93, 85);
+            this.ddlRace.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ddlRace.Name = "ddlRace";
-            this.ddlRace.Size = new System.Drawing.Size(92, 21);
+            this.ddlRace.Size = new System.Drawing.Size(121, 24);
             this.ddlRace.TabIndex = 6;
             // 
             // txtName
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(70, 22);
-            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtName.Location = new System.Drawing.Point(93, 27);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(143, 20);
+            this.txtName.Size = new System.Drawing.Size(189, 22);
             this.txtName.TabIndex = 8;
             // 
             // txtDescription
@@ -136,20 +134,20 @@
             this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(70, 249);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDescription.Location = new System.Drawing.Point(93, 306);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(185, 84);
+            this.txtDescription.Size = new System.Drawing.Size(245, 102);
             this.txtDescription.TabIndex = 9;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(146, 348);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(195, 428);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(56, 19);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -158,10 +156,10 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(207, 348);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(276, 428);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(56, 19);
+            this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
@@ -169,99 +167,99 @@
             // 
             // txtStrength
             // 
-            this.txtStrength.Location = new System.Drawing.Point(125, 126);
-            this.txtStrength.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtStrength.Location = new System.Drawing.Point(167, 155);
+            this.txtStrength.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtStrength.Name = "txtStrength";
-            this.txtStrength.Size = new System.Drawing.Size(29, 20);
+            this.txtStrength.Size = new System.Drawing.Size(37, 22);
             this.txtStrength.TabIndex = 12;
             // 
             // txtIntelligence
             // 
-            this.txtIntelligence.Location = new System.Drawing.Point(125, 150);
-            this.txtIntelligence.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIntelligence.Location = new System.Drawing.Point(167, 185);
+            this.txtIntelligence.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIntelligence.Name = "txtIntelligence";
-            this.txtIntelligence.Size = new System.Drawing.Size(29, 20);
+            this.txtIntelligence.Size = new System.Drawing.Size(37, 22);
             this.txtIntelligence.TabIndex = 13;
             // 
             // txtWisdom
             // 
-            this.txtWisdom.Location = new System.Drawing.Point(125, 172);
-            this.txtWisdom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtWisdom.Location = new System.Drawing.Point(167, 212);
+            this.txtWisdom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtWisdom.Name = "txtWisdom";
-            this.txtWisdom.Size = new System.Drawing.Size(29, 20);
+            this.txtWisdom.Size = new System.Drawing.Size(37, 22);
             this.txtWisdom.TabIndex = 14;
             // 
             // txtDexterity
             // 
-            this.txtDexterity.Location = new System.Drawing.Point(125, 195);
-            this.txtDexterity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDexterity.Location = new System.Drawing.Point(167, 240);
+            this.txtDexterity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDexterity.Name = "txtDexterity";
-            this.txtDexterity.Size = new System.Drawing.Size(29, 20);
+            this.txtDexterity.Size = new System.Drawing.Size(37, 22);
             this.txtDexterity.TabIndex = 15;
             // 
             // txtConstitution
             // 
-            this.txtConstitution.Location = new System.Drawing.Point(125, 218);
-            this.txtConstitution.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtConstitution.Location = new System.Drawing.Point(167, 268);
+            this.txtConstitution.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtConstitution.Name = "txtConstitution";
-            this.txtConstitution.Size = new System.Drawing.Size(29, 20);
+            this.txtConstitution.Size = new System.Drawing.Size(37, 22);
             this.txtConstitution.TabIndex = 16;
             // 
             // Strength
             // 
             this.Strength.AutoSize = true;
-            this.Strength.Location = new System.Drawing.Point(68, 128);
-            this.Strength.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Strength.Location = new System.Drawing.Point(91, 158);
             this.Strength.Name = "Strength";
-            this.Strength.Size = new System.Drawing.Size(47, 13);
+            this.Strength.Size = new System.Drawing.Size(62, 17);
             this.Strength.TabIndex = 17;
             this.Strength.Text = "Strength";
             // 
             // txt
             // 
             this.txt.AutoSize = true;
-            this.txt.Location = new System.Drawing.Point(55, 152);
-            this.txt.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.txt.Location = new System.Drawing.Point(73, 187);
             this.txt.Name = "txt";
-            this.txt.Size = new System.Drawing.Size(61, 13);
+            this.txt.Size = new System.Drawing.Size(79, 17);
             this.txt.TabIndex = 18;
             this.txt.Text = "Intelligence";
             // 
             // Wisdom
             // 
             this.Wisdom.AutoSize = true;
-            this.Wisdom.Location = new System.Drawing.Point(70, 175);
-            this.Wisdom.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Wisdom.Location = new System.Drawing.Point(93, 215);
             this.Wisdom.Name = "Wisdom";
-            this.Wisdom.Size = new System.Drawing.Size(45, 13);
+            this.Wisdom.Size = new System.Drawing.Size(58, 17);
             this.Wisdom.TabIndex = 19;
             this.Wisdom.Text = "Wisdom";
             // 
             // Dexterity
             // 
             this.Dexterity.AutoSize = true;
-            this.Dexterity.Location = new System.Drawing.Point(67, 197);
-            this.Dexterity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Dexterity.Location = new System.Drawing.Point(89, 242);
             this.Dexterity.Name = "Dexterity";
-            this.Dexterity.Size = new System.Drawing.Size(48, 13);
+            this.Dexterity.Size = new System.Drawing.Size(63, 17);
             this.Dexterity.TabIndex = 20;
             this.Dexterity.Text = "Dexterity";
             // 
             // txtC
             // 
             this.txtC.AutoSize = true;
-            this.txtC.Location = new System.Drawing.Point(52, 220);
-            this.txtC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.txtC.Location = new System.Drawing.Point(69, 271);
             this.txtC.Name = "txtC";
-            this.txtC.Size = new System.Drawing.Size(62, 13);
+            this.txtC.Size = new System.Drawing.Size(82, 17);
             this.txtC.TabIndex = 21;
             this.txtC.Text = "Constitution";
             // 
+            // _errors
+            // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._errors.ContainerControl = this;
+            // 
             // CharacterForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 390);
+            this.ClientSize = new System.Drawing.Size(380, 480);
             this.Controls.Add(this.txtC);
             this.Controls.Add(this.Dexterity);
             this.Controls.Add(this.Wisdom);
@@ -283,11 +281,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Title1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.MinimumSize = new System.Drawing.Size(301, 429);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(395, 517);
             this.Name = "CharacterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Character Details";
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,5 +315,6 @@
         private System.Windows.Forms.Label Wisdom;
         private System.Windows.Forms.Label Dexterity;
         private System.Windows.Forms.Label txtC;
+        private System.Windows.Forms.ErrorProvider _errors;
     }
 }
