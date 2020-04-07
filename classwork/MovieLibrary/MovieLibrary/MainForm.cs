@@ -96,18 +96,26 @@ namespace MovieLibrary
             } while (true);
         }
 
-        private string SortByTitle ( Movie movie ) => movie.Title;
-        private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
+        // private string SortByTitle ( Movie movie ) => movie.Title;
+        // private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
 
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
 
-            var movies = _movies.GetAll()
-                                .OrderBy(SortByTitle)
-                                .ThenBy(SortByReleaseYear);
+            //Linq
+            var movies = from movie in _movies.GetAll()
+                         where movie.Id > 0
+                         orderby movie.Title, movie.ReleaseYear descending
+                         select movie;
+
+            // extention
+            //var movies = _movies.GetAll()
+            //                    .OrderBy(movie => movie.Title)
+            //                    .ThenByDescending(movie => movie.ReleaseYear);
 
             listMovies.Items.AddRange(movies.ToArray());
+
             //foreach (var movie in movies)
             //{
             //    listMovies.Items.Add(movie);

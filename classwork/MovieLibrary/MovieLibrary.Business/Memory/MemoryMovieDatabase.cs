@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MovieLibrary.Business.Memory
@@ -34,10 +35,20 @@ namespace MovieLibrary.Business.Memory
 
         protected override IEnumerable<Movie> GetAllCore ()
         {
-            foreach (var movie in _movies)
-            {
-                yield return CloneMovie(movie);
-            }
+            // filtering
+            var items = _movies.Where(m => true);
+
+            // Transformations
+            return _movies.Select(m => CloneMovie(m));
+
+            //Debug.WriteLine("Starting GetAllCore");
+
+            //foreach (var movie in _movies)
+            //{
+            //    Debug.WriteLine($"Returning {movie.Id}");
+            //    yield return CloneMovie(movie);
+            //    Debug.WriteLine($"Returned {movie.Id}");
+            //}
         }
 
         protected override void UpdateCore ( int id, Movie movie )
@@ -82,32 +93,66 @@ namespace MovieLibrary.Business.Memory
             target.RunLength = source.RunLength;
         }
 
-        protected override Movie FindByTitle ( string title )
-        {
-            foreach (var movie in _movies)
-            {
-                if (String.Compare(movie?.Title, title, true) == 0)
-                    return movie;
-            }
+        // example of doing more complex quering with programmatic filters
+        //private IEnumerable<Movie> Query ( string title, int releaseYear )
+        //{
+        //    var query = from movie in _movies
+        //                select movie;
 
-            return null;
-        }
+        //    if (!String.IsNullOrEmpty(title))
+        //        query = query.Where(m => String.Compare(m.Title, title, true) == 0);
+
+        //    if (releaseYear > 0)
+        //        query = query.Where(m => m.ReleaseYear >= releaseYear);
+        //    return query.ToList();
+        //}
+
+        protected override Movie FindByTitle ( string title ) => (from movie in _movies                                 // linq
+                                                                 where String.Compare(movie.Title, title, true) == 0
+                                                                 select movie).FirstOrDefault();
+                                                           // => _movies.FirstOrDefault(m => String.Compare(m?.Title, title, true) == 0);   //extention
+       
+        //{
+        //    foreach (var movie in _movies)
+        //    {
+        //        if (String.Compare(movie?.Title, title, true) == 0)
+        //            return movie;
+        //    }
+
+        //    return null;
+        //}
 
         //private bool IsId ( Movie movie ) => movie.Id == id;
 
-        protected override Movie FindById ( int id ) // => _movies.FirstOrDefault(IsId);
-        {
-            foreach (var movie in _movies)
-            {
-                if (movie.Id == id)
-                    return movie;
-            }
+        protected override Movie FindById ( int id ) => _movies.FirstOrDefault(m => m.Id == id);
+        //{
+        //    _movies.FirstOrDefault( m => m.Id == id);       // lambda aka anonymous function ( m => m.Id == id )
 
-            return null;
-        }
+        //    foreach (var movie in _movies)
+        //    {
+        //        if (movie.Id == id)
+        //            return movie;
+        //    }
 
-// private readonly Movie[] _movies = new Movie[100];
-private readonly List<Movie> _movies = new List<Movie>();
+        //    return null;
+        //}
+
+        // private readonly Movie[] _movies = new Movie[100];
+        private readonly List<Movie> _movies = new List<Movie>();
         private int _id = 1;
+
+        //private bool _@FAk2Fa235 ( Movie movie ) { return movie.Id == id; }
+
+        //Lambda syntax ::= parameters => body
+        // 0 parameters () => ?     Func<?>
+        // 1 parameter, 1 return type ::=   x => E   ,  _ => E         Func<T, ?>
+        // 2+ parameters (x,y) => ?                                    Func<S, T, ?>
+        // no return type => {}                                        Action<>
+        // Multiple statement expressions => { S* }
+        //      x => { Console.WriteLine(x); var y = x; return x; }
+        //
+        // General rules around lambdas
+        //   1. No ref or out parameters
+        //   2. Closure - any changes to capture values are lost
     }
 }
