@@ -18,10 +18,10 @@ namespace CharacterCreator.Business
         {
             if (!database.GetAll().Any())
             {
-                var demo = new Character() { Name = "Lark", Strength = 75, Intelligence = 30, Wisdom = 10, Dexterity = 10, Constitution = 20 };
+                var demo = new Character() { Name = "Lark", Strength = 50, Intelligence = 30, Wisdom = 10, Dexterity = 10, Constitution = 20 };
                 var items = new[] {
                     new Character() {Name = "Lapis", Strength = 7, Intelligence = 30, Wisdom = 10, Dexterity = 10, Constitution = 20 },
-                    new Character() {Name = "Evan", Strength = 5, Intelligence = 30, Wisdom = 1, Dexterity = 10, Constitution = 0 },
+                    new Character() {Name = "Evan", Strength = 5, Intelligence = 30, Wisdom = 1, Dexterity = 10, Constitution = 15 },
                     demo,
                 };
                 foreach (var item in items)

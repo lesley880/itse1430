@@ -38,6 +38,8 @@ namespace CharacterCreator.Business
 
         public int Constitution { get; set; } = 50;
 
+        public override string ToString () => Name;
+
         public string Description
         {
             get => _description ?? "";    
@@ -64,27 +66,27 @@ namespace CharacterCreator.Business
                 yield return new ValidationResult("Race required", new[] { nameof(Race) });
             }
 
-            if (Strength < 1 || Strength > 100)
+            if (Strength < 1 || Strength > 50)
             {
                 yield return new ValidationResult("Strength must be between 1 and 50.", new[] { nameof(Strength) });
             }
 
-            if (Intelligence < 1 || Intelligence > 100)
+            if (Intelligence < 1 || Intelligence > 50)
             {
                 yield return new ValidationResult("Intelligence must be between 1 and 50.", new[] { nameof(Intelligence) });
             }
 
-            if (Wisdom < 1 || Wisdom > 100)
+            if (Wisdom < 1 || Wisdom > 50)
             {
                 yield return new ValidationResult("Wisdom must be between 1 and 50.", new[] { nameof(Wisdom) });
             }
 
-            if (Dexterity < 1 || Dexterity > 100)
+            if (Dexterity < 1 || Dexterity > 50)
             {
                 yield return new ValidationResult("Dexterity must be between 1 and 50.", new[] { nameof(Dexterity) });
             }
 
-            if (Constitution < 1 || Constitution > 100)
+            if (Constitution < 1 || Constitution > 50)
             {
                 yield return new ValidationResult("Constitution must be between 1 and 50..", new[] { nameof(Constitution) });
             }

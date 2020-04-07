@@ -128,6 +128,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(189, 22);
             this.txtName.TabIndex = 8;
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // txtDescription
             // 
@@ -172,6 +173,7 @@
             this.txtStrength.Name = "txtStrength";
             this.txtStrength.Size = new System.Drawing.Size(37, 22);
             this.txtStrength.TabIndex = 12;
+            this.txtStrength.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateStrength);
             // 
             // txtIntelligence
             // 
@@ -180,6 +182,7 @@
             this.txtIntelligence.Name = "txtIntelligence";
             this.txtIntelligence.Size = new System.Drawing.Size(37, 22);
             this.txtIntelligence.TabIndex = 13;
+            this.txtIntelligence.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateIntelligence);
             // 
             // txtWisdom
             // 
@@ -188,6 +191,7 @@
             this.txtWisdom.Name = "txtWisdom";
             this.txtWisdom.Size = new System.Drawing.Size(37, 22);
             this.txtWisdom.TabIndex = 14;
+            this.txtWisdom.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateWisdom);
             // 
             // txtDexterity
             // 
@@ -196,6 +200,7 @@
             this.txtDexterity.Name = "txtDexterity";
             this.txtDexterity.Size = new System.Drawing.Size(37, 22);
             this.txtDexterity.TabIndex = 15;
+            this.txtDexterity.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateDexterity);
             // 
             // txtConstitution
             // 
@@ -204,6 +209,7 @@
             this.txtConstitution.Name = "txtConstitution";
             this.txtConstitution.Size = new System.Drawing.Size(37, 22);
             this.txtConstitution.TabIndex = 16;
+            this.txtConstitution.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateConstitution);
             // 
             // Strength
             // 
