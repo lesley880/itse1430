@@ -35,6 +35,7 @@ namespace MovieLibrary.Business.Memory
 
         protected override IEnumerable<Movie> GetAllCore ()
         {
+
             // filtering
             var items = _movies.Where(m => true);
 

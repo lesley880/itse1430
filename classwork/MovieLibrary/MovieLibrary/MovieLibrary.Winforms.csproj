@@ -100,6 +100,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MovieLibrary.Business.FileSystem\MovieLibrary.Business.FileSystem.csproj">
+      <Project>{124831AA-8827-4C8A-8C11-6765DB457A12}</Project>
+      <Name>MovieLibrary.Business.FileSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MovieLibrary.Business\MovieLibrary.Business.csproj">
       <Project>{e4801678-fe94-48a7-bbe2-524928dc3bba}</Project>
       <Name>MovieLibrary.Business</Name>

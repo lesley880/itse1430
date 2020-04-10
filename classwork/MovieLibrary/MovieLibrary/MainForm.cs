@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MovieLibrary.Business;
+using MovieLibrary.Business.FileSystem;
 using MovieLibrary.Business.Memory;
 using MovieLibrary.Winforms;
 
@@ -18,8 +19,6 @@ namespace MovieLibrary
         public MainForm ()
         {
             InitializeComponent();
-
-            _movies = new MemoryMovieDatabase();
 
             // MovieLibrary.Business.Movie;
             //var movie = new Movie();
@@ -56,12 +55,25 @@ namespace MovieLibrary
         protected override void OnLoad (EventArgs e)
         {
             base.OnLoad(e);
-            
-           // SeedDatabase.SeedIfEmpty(_movies);
+
+            _movies = new FileMovieDatabase("movies.csv");
+
+            // SeedDatabase.SeedIfEmpty(_movies);
 
             // call extention method as though it is an instance; discover it.
-            _movies.SeedIfEmpty();
-
+            try
+            {
+                _movies.SeedIfEmpty();
+            } catch (InvalidOperationException)
+            {
+                DisplayError("Invalid op");
+            }catch(ArgumentException)
+            {
+                DisplayError("Invalid Argument");
+            }catch(Exception ex)
+            {
+                DisplayError(ex.Message);
+            }
             UpdateUI();
         }
 
@@ -103,11 +115,29 @@ namespace MovieLibrary
         {
             listMovies.Items.Clear();
 
+            var movies = Enumerable.Empty<Movie>();
+            try
+            {
+                movies = _movies.GetAll();
+            } catch (Exception e)
+            {
+                DisplayError($"Failed to load movies: {e.Message}");
+            }
+
             //Linq
-            var movies = from movie in _movies.GetAll()
+            movies = from movie in movies
                          where movie.Id > 0
                          orderby movie.Title, movie.ReleaseYear descending
                          select movie;
+            // Error handleling = try catch block
+            // try
+            // { s*}
+            // catch
+            // {S* }
+            //
+            //
+            //
+            
 
             // extention
             //var movies = _movies.GetAll()
@@ -183,7 +213,7 @@ namespace MovieLibrary
             var about = new AboutBox();
             about.ShowDialog(this);
         }
-        private readonly IMovieDatabase _movies;
+        private IMovieDatabase _movies;
 
     }
 }
