@@ -22,6 +22,8 @@ namespace MovieLibrary.Business.FileSystem
 
         protected override Movie AddCore ( Movie movie )
         {
+            EnsureLoaded();
+
             movie.Id = (_items.Any() ? _items.Max(m => m.Id) : 0) + 1;
 
             _items.Add(movie);
@@ -30,33 +32,88 @@ namespace MovieLibrary.Business.FileSystem
             return movie;
         }
 
-        protected override void DeleteCore ( int id ) => throw new NotImplementedException();
-        protected override Movie GetCore ( int id ) => throw new NotImplementedException();
+        private void EnsureLoaded ()
+        {
+            if (_items == null)
+                GetAllCore();
+        }
+
+        protected override void DeleteCore ( int id )
+        {
+            var movie = FindById(id);
+            if (movie != null)
+            {
+                _items.Remove(movie);
+                SaveMovies();
+            };
+        }
+
+        protected override Movie GetCore ( int id )
+        {
+            if (!File.Exists(_filename))
+                return null;
+            //IOException
+
+            using (var reader = new StreamReader(_filename))
+            {
+                    
+               while (!reader.EndOfStream)
+               {
+                   var line = reader.ReadLine();
+                   var movie = LoadMovie(line);
+                   if (movie?.Id == id)
+                       return movie;
+               }
+            }
+
+            return null;
+        }
 
         protected override IEnumerable<Movie> GetAllCore ()
         {
+            _items = new List<Movie>();
             if (File.Exists(_filename))
             {
                 try
                 {
                     var movies = LoadMovies();
 
-                    _items.Clear();
                     _items.AddRange(movies);
 
-                    return _items;
                 } catch (FileNotFoundException)
                 { /* Ignore */ };
             };
 
-            return Enumerable.Empty<Movie>();
+            return _items;
         }
 
-        protected override void UpdateCore ( int id, Movie movie ) => throw new NotImplementedException();
+        protected override void UpdateCore ( int id, Movie movie )
+        {
+            var existing = FindById(id);
+            if (existing == null)
+                throw new Exception("Movie not found");
 
-        protected override Movie FindByTitle ( string title ) => _items.FirstOrDefault(m => String.Compare(m.Title, title, true) == 0);
+            _items.Remove(existing);
 
-        protected override Movie FindById ( int id ) => _items.FirstOrDefault(m => m.Id == id);
+            movie.Id = id;
+            _items.Add(movie);
+
+            SaveMovies();
+        }
+
+        protected override Movie FindByTitle ( string title )
+        {
+            EnsureLoaded();
+
+            return _items.FirstOrDefault(m => String.Compare(m.Title, title, true) == 0);
+        }
+
+        protected override Movie FindById ( int id )
+        {
+            EnsureLoaded();
+
+            return _items.FirstOrDefault(m => m.Id == id);
+        }
 
         private IEnumerable<Movie> LoadMovies ()
         {
@@ -131,9 +188,9 @@ namespace MovieLibrary.Business.FileSystem
 
         private static string QuotedString ( string value ) => $"\"{value}\"";
 
-        private static string UnquotedString ( string value ) => value?.Trim('\"')?.Trim() ?? "";
+        private static string UnquotedString ( string value ) => value?.Trim('"', ' ', '\t')?.Trim() ?? "";
 
-        private readonly List<Movie> _items = new List<Movie>();
+        private List<Movie> _items;
         private readonly string _filename;
     }
 }

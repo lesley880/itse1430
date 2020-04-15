@@ -15,16 +15,22 @@ namespace MovieLibrary.Business
 
             // .Net
             ObjectValidator.Validate(movie);
-            //if (errors.Any())
-                //if (!Validator.TryValidateObject(movie, new ValidationContext(movie), errors, true))
-                //if (!movie.Validate(out var error))
-                //return null;
 
             // Movie Names must be unique
-            var exsisting = FindByTitle(movie.Title);
-            if (exsisting != null)
-                throw new InvalidOperationException("Movie must be unique");
-            return AddCore(movie);
+            try
+            {
+                var exsisting = FindByTitle(movie.Title);
+                if (exsisting != null)
+                    throw new InvalidOperationException("Movie must be unique");
+
+                return AddCore(movie);
+            }catch(InvalidOperationException)
+            {
+                throw;
+            } catch (Exception e)
+            {
+                throw new InvalidOperationException("Error adding movie", e);
+            }
         }
 
         protected abstract Movie AddCore ( Movie movie );
