@@ -1,12 +1,14 @@
 /*
+ * Lesley Reller
  * ITSE 1430
+ * 04/14/2020
  */
 using System;
 
 namespace Nile
 {
     /// <summary>Represents a product.</summary>
-    public class Product
+    public class Product : IValidatableObject
     {
         /// <summary>Gets or sets the unique identifier.</summary>
         public int Id { get; set; }
@@ -18,7 +20,7 @@ namespace Nile
             get { return _name ?? ""; }
             set { _name = value?.Trim(); }
         }
-        
+
         /// <summary>Gets or sets the description.</summary>
         public string Description
         {
@@ -27,12 +29,12 @@ namespace Nile
         }
 
         /// <summary>Gets or sets the price.</summary>
-        public decimal Price { get; set; } = 0;      
+        public decimal Price { get; set; } = 0;
 
         /// <summary>Determines if discontinued.</summary>
         public bool IsDiscontinued { get; set; }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return Name;
         }

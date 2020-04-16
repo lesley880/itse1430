@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{93BD7A37-01A9-498D-8479-67BEF715EA20}</ProjectGuid>
+    <ProjectGuid>{C6206E9B-E6E9-490C-BEAA-A691EABF0F7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nile</RootNamespace>
-    <AssemblyName>Nile</AssemblyName>
+    <RootNamespace>MovieLibrary.Business.SqlServer</RootNamespace>
+    <AssemblyName>MovieLibrary.Business.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,12 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProductDatabase.cs" />
-    <Compile Include="IValidatableObject.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="Stores\ProductDatabase.cs" />
-    <Compile Include="Stores\MemoryProductDatabase.cs" />
+    <Compile Include="SqlMovieDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MovieLibrary.Business\MovieLibrary.Business.csproj">
+      <Project>{e4801678-fe94-48a7-bbe2-524928dc3bba}</Project>
+      <Name>MovieLibrary.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

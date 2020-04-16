@@ -1,5 +1,7 @@
 /*
+ * Lesley Reller
  * ITSE 1430
+ * 04/14/2020
  */
 using System;
 using System.Windows.Forms;
@@ -140,5 +142,11 @@ namespace Nile.Windows
 
         private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
         #endregion
+
+        private void HelpAbout ( object sender, EventArgs e )
+        {
+            var aboutBox = new AboutBox();
+            aboutBox.Show();
+        }
     }
 }

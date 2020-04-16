@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Windows.Forms;
 using MovieLibrary.Business;
 using MovieLibrary.Business.FileSystem;
 using MovieLibrary.Business.Memory;
+using MovieLibrary.Business.SqlServer;
 using MovieLibrary.Winforms;
 
 namespace MovieLibrary
@@ -56,24 +58,25 @@ namespace MovieLibrary
         {
             base.OnLoad(e);
 
-            _movies = new FileMovieDatabase("movies.csv");
+            var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"];
+            _movies = new SqlMovieDatabase(connString.ConnectionString);
 
             // SeedDatabase.SeedIfEmpty(_movies);
 
             // call extention method as though it is an instance; discover it.
-            try
-            {
-                _movies.SeedIfEmpty();
-            } catch (InvalidOperationException)
-            {
-                DisplayError("Invalid op");
-            }catch(ArgumentException)
-            {
-                DisplayError("Invalid Argument");
-            }catch(Exception ex)
-            {
-                DisplayError(ex.Message);
-            }
+            //try
+            //{
+            //    _movies.SeedIfEmpty();
+            //} catch (InvalidOperationException)
+            //{
+            //    DisplayError("Invalid op");
+            //}catch(ArgumentException)
+            //{
+            //    DisplayError("Invalid Argument");
+            //}catch(Exception ex)
+            //{
+            //    DisplayError(ex.Message);
+            //}
             UpdateUI();
         }
 

@@ -6,8 +6,12 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-namespace MovieLibrary.Winforms
+/*
+ * Lesley Reller
+ * ITSE 1430
+ * 04/14/2020
+ */
+namespace Nile.Windows
 {
     partial class AboutBox : Form
     {
