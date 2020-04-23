@@ -1,8 +1,11 @@
 /*
+ * Lesley Reller
  * ITSE 1430
+ * 04/18/2020
  */
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Nile.Windows
@@ -56,12 +59,20 @@ namespace Nile.Windows
         private void OnSave ( object sender, EventArgs e )
         {
             if (!ValidateChildren())
-            {
                 return;
-            };
 
-            var product = new Product()
-            {
+            //TODO: Validate product
+            var product = GetProduct();
+            var errors = ObjectValidator.TryValidate(product);
+            
+            Product = product;
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private Product GetProduct()
+        {
+            var product = new Product() {
                 Id = Product?.Id ?? 0,
                 Name = _txtName.Text,
                 Description = _txtDescription.Text,
@@ -69,11 +80,7 @@ namespace Nile.Windows
                 IsDiscontinued = _chkDiscontinued.Checked,
             };
 
-            //TODO: Validate product
-
-            Product = product;
-            DialogResult = DialogResult.OK;
-            Close();
+            return product;
         }
 
         private void OnValidatingName ( object sender, CancelEventArgs e )
@@ -107,7 +114,7 @@ namespace Nile.Windows
 
             //Validate price            
             return -1;
-        }                      
+        }
         #endregion
     }
 }

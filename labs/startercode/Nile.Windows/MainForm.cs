@@ -5,6 +5,10 @@
  */
 using System;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Data;
+using Nile.Stores;
+using Nile;
 
 namespace Nile.Windows
 {
@@ -37,13 +41,23 @@ namespace Nile.Windows
         private void OnProductAdd( object sender, EventArgs e )
         {
             var child = new ProductDetailForm("Product Details");
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                //TODO: Handle error
+                var product = _database.Add(child.Product);
 
-            //TODO: Handle errors
+                    if(product != null)
+                    {
+                       UpdateList();
+                       return;
+                    }
+            } while (true);
+            
             //Save product
-            _database.Add(child.Product);
-            UpdateList();
+            //_database.Add(child.Product);
+            //UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -139,8 +153,6 @@ namespace Nile.Windows
 
             _bsProducts.DataSource = _database.GetAll();
         }
-
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
         #endregion
 
         private void HelpAbout ( object sender, EventArgs e )
@@ -148,5 +160,7 @@ namespace Nile.Windows
             var aboutBox = new AboutBox();
             aboutBox.Show();
         }
+
+        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
     }
 }

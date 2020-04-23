@@ -81,9 +81,9 @@ namespace MovieLibrary.Winforms
 
                 if (Movie.Genre != null)
                     ddlGenres.SelectedText = Movie.Genre.Description;
-
-                ValidateChildren();
             }
+
+            ValidateChildren();
         }
 
         private Movie GetMovie ()

@@ -1,8 +1,11 @@
 /*
+ * Lesley Reller
  * ITSE 1430
+ * 04/17/2020
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile.Stores
 {
@@ -68,27 +71,32 @@ namespace Nile.Stores
         
         private Product CopyProduct ( Product product )
         {
-            var newProduct = new Product();
-            newProduct.Id = product.Id;
-            newProduct.Name = product.Name;
-            newProduct.Description = product.Description;
-            newProduct.Price = product.Price;
-            newProduct.IsDiscontinued = product.IsDiscontinued;
+            var newProduct = new Product {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                IsDiscontinued = product.IsDiscontinued
+            };
 
             return newProduct;
         }
 
         //Find a product by ID
-        private Product FindProduct ( int id )
-        {
-            foreach (var product in _products)
-            {
-                if (product.Id == id)
-                    return product;
-            };
+        protected override Product FindProduct ( int id ) => _products.FirstOrDefault(p => p.Id == id);
 
-            return null;
-        }
+        protected override Product FindName ( string name ) =>(from product in _products
+                                                               where String.Compare(product.Name, name, true) == 0
+                                                               select product).FirstOrDefault();
+        //{
+        //    foreach (var product in _products)
+        //    {
+        //        if (product.Id == id)
+        //            return product;
+        //    };
+
+        //    return null;
+        //}
 
         private List<Product> _products = new List<Product>();
         private int _nextId = 1;

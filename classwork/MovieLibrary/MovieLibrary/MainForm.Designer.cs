@@ -132,7 +132,7 @@
             this.listMovies.FormattingEnabled = true;
             this.listMovies.ItemHeight = 16;
             this.listMovies.Location = new System.Drawing.Point(0, 30);
-            this.listMovies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listMovies.Margin = new System.Windows.Forms.Padding(4);
             this.listMovies.Name = "listMovies";
             this.listMovies.Size = new System.Drawing.Size(393, 328);
             this.listMovies.TabIndex = 7;
@@ -146,7 +146,7 @@
             this.Controls.Add(this.listMovies);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Movie Library";
             this.menuStrip1.ResumeLayout(false);

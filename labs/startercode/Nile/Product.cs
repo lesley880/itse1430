@@ -4,6 +4,8 @@
  * 04/14/2020
  */
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nile
 {
@@ -37,6 +39,24 @@ namespace Nile
         public override string ToString ()
         {
             return Name;
+        }
+
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        {
+            if (String.IsNullOrEmpty(Name))
+            {
+                yield return new ValidationResult("Name is required.", new[] { nameof(Name) });
+            };
+
+            if (Id >= 0)
+            {
+                yield return new ValidationResult("Id must be >= 0.", new[] { nameof(Id) });          
+            };
+
+            if (Price >= 0)
+            {
+                yield return new ValidationResult("Price must be >= 0.", new[] { nameof(Price) }); 
+            };
         }
 
         #region Private Members

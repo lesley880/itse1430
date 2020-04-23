@@ -111,49 +111,9 @@ namespace MovieLibrary.Business.Memory
         protected override Movie FindByTitle ( string title ) => (from movie in _movies                                 // linq
                                                                  where String.Compare(movie.Title, title, true) == 0
                                                                  select movie).FirstOrDefault();
-                                                           // => _movies.FirstOrDefault(m => String.Compare(m?.Title, title, true) == 0);   //extention
-       
-        //{
-        //    foreach (var movie in _movies)
-        //    {
-        //        if (String.Compare(movie?.Title, title, true) == 0)
-        //            return movie;
-        //    }
-
-        //    return null;
-        //}
-
-        //private bool IsId ( Movie movie ) => movie.Id == id;
-
         protected override Movie FindById ( int id ) => _movies.FirstOrDefault(m => m.Id == id);
-        //{
-        //    _movies.FirstOrDefault( m => m.Id == id);       // lambda aka anonymous function ( m => m.Id == id )
 
-        //    foreach (var movie in _movies)
-        //    {
-        //        if (movie.Id == id)
-        //            return movie;
-        //    }
-
-        //    return null;
-        //}
-
-        // private readonly Movie[] _movies = new Movie[100];
         private readonly List<Movie> _movies = new List<Movie>();
         private int _id = 1;
-
-        //private bool _@FAk2Fa235 ( Movie movie ) { return movie.Id == id; }
-
-        //Lambda syntax ::= parameters => body
-        // 0 parameters () => ?     Func<?>
-        // 1 parameter, 1 return type ::=   x => E   ,  _ => E         Func<T, ?>
-        // 2+ parameters (x,y) => ?                                    Func<S, T, ?>
-        // no return type => {}                                        Action<>
-        // Multiple statement expressions => { S* }
-        //      x => { Console.WriteLine(x); var y = x; return x; }
-        //
-        // General rules around lambdas
-        //   1. No ref or out parameters
-        //   2. Closure - any changes to capture values are lost
     }
 }

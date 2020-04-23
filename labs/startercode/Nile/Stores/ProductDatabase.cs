@@ -1,8 +1,11 @@
 /*
+ * LesleyReller
  * ITSE 1430
+ * 04/17/2020
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile.Stores
 {
@@ -15,11 +18,32 @@ namespace Nile.Stores
         public Product Add ( Product product )
         {
             //TODO: Check arguments
+            if (product == null)
+                throw new ArgumentNullException(nameof(Product), "Product is null.");
 
             //TODO: Validate product
+            //.Net
+            ObjectValidator.Validate(product);
 
+            // Names need to be unique
+            try
+            {
+                var existing = FindName(product.Name);
+                if (existing != null)
+                    throw new InvalidOperationException("Product must be unique");
+
+                return AddCore(product);
+            } catch (InvalidOperationException)
+            {
+                // Rethrow exception
+                throw;
+            } catch (Exception e)
+            {
+                // Rewrite exception with original exception as the inner exception
+                throw new InvalidOperationException("Error adding product", e);
+            };
             //Emulate database by storing copy
-            return AddCore(product);
+            // return AddCore(product);
         }
 
         /// <summary>Get a specific product.</summary>
@@ -27,6 +51,8 @@ namespace Nile.Stores
         public Product Get ( int id )
         {
             //TODO: Check arguments
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
 
             return GetCore(id);
         }
@@ -43,6 +69,8 @@ namespace Nile.Stores
         public void Remove ( int id )
         {
             //TODO: Check arguments
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
 
             RemoveCore(id);
         }
@@ -53,13 +81,29 @@ namespace Nile.Stores
         public Product Update ( Product product )
         {
             //TODO: Check arguments
+            if (product == null)
+                throw new ArgumentNullException(nameof(Product), "Product is null.");
 
             //TODO: Validate product
+            ObjectValidator.TryValidate(product);
 
-            //Get existing product
-            var existing = GetCore(product.Id);
+            try
+            {
+                var existing = FindName(product.Name);
+                if (existing != null)
+                    throw new InvalidOperationException("Product must be unique");
 
-            return UpdateCore(existing, product);
+                return AddCore(product);
+            } catch (InvalidOperationException)
+            {
+                // Rethrow exception
+                throw;
+            } catch (Exception e)
+            {
+                // Rewrite exception with original exception as the inner exception
+                throw new InvalidOperationException("Error adding product", e);
+            };
+           // return UpdateCore(existing, product);
         }
 
         #region Protected Members
@@ -73,6 +117,10 @@ namespace Nile.Stores
         protected abstract Product UpdateCore( Product existing, Product newItem );
 
         protected abstract Product AddCore( Product product );
+
+        protected abstract Product FindProduct ( int id );
+
+        protected abstract Product FindName ( string name );
         #endregion
     }
 }

@@ -18,150 +18,115 @@ namespace MovieLibrary
 {
     public partial class MainForm : Form
     {
+        #region Construction
+
         public MainForm ()
         {
             InitializeComponent();
-
-            // MovieLibrary.Business.Movie;
-            //var movie = new Movie();
-
-            //movie.title = "Jaws";
-            //movie.description = movie.title;
-
-            //movie = new Movie();
-
-            //DisplayMovie(movie);
-            //DisplayMovie(null);
-
-            //DisplayConfirmation("Are you sure?", "Start");
         }
+        #endregion
 
-        private bool DisplayConfirmation(string message, string title)
-        {
-            var result = MessageBox.Show(message, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-
-            return result == DialogResult.OK;
-        }
-
-        void DisplayError(string message)
-        {
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            //var that = this;
-
-            //var Text = "";
-            //var newTitle = this.Text;
-            //var newTitle = Text;
-        }
-
-        protected override void OnLoad (EventArgs e)
+        protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
 
             var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"];
             _movies = new SqlMovieDatabase(connString.ConnectionString);
 
-            // SeedDatabase.SeedIfEmpty(_movies);
-
-            // call extention method as though it is an instance; discover it.
-            //try
-            //{
-            //    _movies.SeedIfEmpty();
-            //} catch (InvalidOperationException)
-            //{
-            //    DisplayError("Invalid op");
-            //}catch(ArgumentException)
-            //{
-            //    DisplayError("Invalid Argument");
-            //}catch(Exception ex)
-            //{
-            //    DisplayError(ex.Message);
-            //}
             UpdateUI();
         }
 
-        void DisplayMovie (Movie movie)
+        private Movie GetSelectedMovie ()
         {
-            if (movie == null)
-                return;
+            var selectedItems = listMovies.SelectedItems.OfType<Movie>();
 
-            var title = movie.Title;
-            movie.Description = "Test";
+            // T? FirstOrDefault ( this IEnumerable<T> ) :: Returns first item that meets criteria or default for type if none
+            // T? LastOrDefault ( this IEnumerable<T> ) :: Returns last item that meets criteria or default for type if none; not always supported
 
-            movie = new Movie();
+            // T First ( this IEnumerable<T> ) :: Returns first item that meets criteria or blows up
+            // T Last ( this IEnumerable<T> )  :: Returns first item that meets criteria or blows up
+
+            // T? SingleOrDefault ( this IEnumerable<T> ) :: Returns the only item that meets criteria or default for type if none, blows up if more than one meets criteria
+            // T Single ( this IEnumerable<T> ) :: Returns the only item that meets criteria or blows up
+            return selectedItems.FirstOrDefault();
         }
 
-       
-        private void OnMovieAdd ( object sender, EventArgs e )
-        {
-            MovieForm child = new MovieForm();
-            do
-            {
-                if (child.ShowDialog(this) != DialogResult.OK)
-                    return;
-                
-                var movie = _movies.Add(child.Movie);
-                if (movie != null)
-                {
-                    UpdateUI();
-                    return;
-                }
-
-                DisplayError("Add failed");
-            } while (true);
-        }
-
-        // private string SortByTitle ( Movie movie ) => movie.Title;
-        // private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
+        //private string SortByTitle ( Movie movie ) => movie.Title;
+        //private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
 
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
 
+            //Extension method approach
+            //var movies = _movies.GetAll()
+            //                    .OrderBy(movie => movie.Title)  // IEnumerable<T> OrderBy<T> ( this IEnumerable<T> source, Func<T, string> sorter );
+            //                    .ThenByDescending(movie => movie.ReleaseYear)
+            //                    ;
+
+            //Error handling = try-catch block
+            // try
+            // { S* }
+            // catch (T id)
+            // { S* }
+            // catch (T id)
+            // { S* }
+            //
             var movies = Enumerable.Empty<Movie>();
             try
             {
                 movies = _movies.GetAll();
+                //other things
             } catch (Exception e)
             {
                 DisplayError($"Failed to load movies: {e.Message}");
-            }
+            };
 
-            //Linq
+            //LINQ syntax 
+            //  from movie in IEnumerable<T>
+            //  [where expression]
+            //  [orderby property1 [, other properties]
+            //  select movie
             movies = from movie in movies
-                         where movie.Id > 0
-                         orderby movie.Title, movie.ReleaseYear descending
-                         select movie;
-            // Error handleling = try catch block
-            // try
-            // { s*}
-            // catch
-            // {S* }
-            //
-            //
-            //
-            
+                     where movie.Id > 0
+                     orderby movie.Title, movie.ReleaseYear descending
+                     select movie;
 
-            // extention
-            //var movies = _movies.GetAll()
-            //                    .OrderBy(movie => movie.Title)
-            //                    .ThenByDescending(movie => movie.ReleaseYear);
-
-            listMovies.Items.AddRange(movies.ToArray());
-
+            // T[] ToArray ( this IEnumerable<T> source ) = returns source as an array            
+            // List<T> ToList ( this IEnumerable<T> source ) = returns source as a List<T>
+            //var temp = new List<Movie>();
+            //foreach (var item in movies)
+            //    temp.Add(item);
+            //return temp;                                    
+            listMovies.Items.AddRange(movies.ToArray()); //Enumerable.ToArray(movies)
             //foreach (var movie in movies)
             //{
-            //    listMovies.Items.Add(movie);
-            //}
+            //    lstMovies.Items.Add(movie);
+            //};
         }
 
-        private Movie GetSelectedMovie ()
-        {
-            // preferred
-            //return listMovies.SelectedItem as Movie;
+        #region Event Handlers
 
-            var selectedItems = listMovies.SelectedItems.OfType<Movie>();
-            return selectedItems.FirstOrDefault();
+        private void OnMovieAdd ( object sender, EventArgs e )
+        {
+            MovieForm child = new MovieForm();
+
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    var movie = _movies.Add(child.Movie);
+
+                    UpdateUI();
+                    return;
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message);
+                };
+            } while (true);
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -179,31 +144,37 @@ namespace MovieLibrary
                     return;
 
                 // Save the movie
-                var error = _movies.Update(movie.Id, child.Movie);
-                if (String.IsNullOrEmpty(error))
+                try
                 {
+                    _movies.Update(movie.Id, child.Movie);
                     UpdateUI();
                     return;
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message);
                 };
-
-                DisplayError(error);
             } while (true);
         }
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
-            // Verify movie
+            //Verify movie
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;
 
-            // Confirm
+            //Confirm
             if (!DisplayConfirmation($"Are you sure you want to delete {movie.Title}?", "Delete"))
                 return;
 
-            //TODO: DELETE
-            _movies.Delete(movie.Id);
-            UpdateUI();
+            try
+            {
+                _movies.Delete(movie.Id);
+                UpdateUI();
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message);
+            };
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -214,9 +185,30 @@ namespace MovieLibrary
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutBox();
+
             about.ShowDialog(this);
         }
+        #endregion
+
+        #region Private Members
+
         private IMovieDatabase _movies;
 
+        private bool DisplayConfirmation ( string message, string title )
+        {
+            //Display a confirmation dialog
+            var result = MessageBox.Show(message, title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            //Return true if user selected OK
+            return result == DialogResult.OK;
+        }
+
+        /// <summary>Displays an error message.</summary>
+        /// <param name="message">Error to display.</param>
+        private void DisplayError ( string message )
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        #endregion
     }
 }
