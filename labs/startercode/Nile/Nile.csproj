@@ -46,7 +46,7 @@
     <Compile Include="IProductDatabase.cs" />
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="Product.cs" />
-    <Compile Include="Stores\ProductDatabase.cs" />
+    <Compile Include="ProductDatabase.cs" />
     <Compile Include="Stores\MemoryProductDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

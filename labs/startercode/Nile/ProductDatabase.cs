@@ -53,15 +53,28 @@ namespace Nile.Stores
             //TODO: Check arguments
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
-
-            return GetCore(id);
+            try
+            {
+                return GetCore(id);
+            } catch (Exception e)
+            {
+                //Rewrite exception
+                throw new InvalidOperationException("Error reading product.", e);
+            };
         }
         
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
         public IEnumerable<Product> GetAll ()
         {
-            return GetAllCore();
+            try
+            {
+                return GetAllCore() ?? Enumerable.Empty<Product>();
+            } catch (Exception e)
+            {
+                //Rewrite exception
+                throw new InvalidOperationException("Error reading products.", e);
+            };
         }
         
         /// <summary>Removes the product.</summary>
@@ -71,14 +84,20 @@ namespace Nile.Stores
             //TODO: Check arguments
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
-
-            RemoveCore(id);
+            try
+            {
+                RemoveCore(id);
+            }catch (Exception e)
+            {
+                // rewrite exception
+                throw new InvalidOperationException("Error removing product.", e);
+            }
         }
         
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
-        public Product Update ( Product product )
+        public void Update ( int id, Product product )
         {
             //TODO: Check arguments
             if (product == null)
@@ -87,23 +106,33 @@ namespace Nile.Stores
             //TODO: Validate product
             ObjectValidator.TryValidate(product);
 
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "ID must be greater than zero");
+
             try
             {
-                var existing = FindName(product.Name);
-                if (existing != null)
+                var existing = FindProduct(id);
+                if (existing == null)
+                    throw new ArgumentException("Product not found", nameof(id));
+
+                //Unique name
+                var sameName = FindName(product.Name);
+                if (sameName != null && sameName.Id != id)
                     throw new InvalidOperationException("Product must be unique");
 
-                return AddCore(product);
-            } catch (InvalidOperationException)
+                UpdateCore(id, product);
+            } catch (ArgumentException)
             {
                 // Rethrow exception
                 throw;
-            } catch (Exception e)
+            } catch (InvalidOperationException)
+            {
+                throw;
+            }catch(Exception e)
             {
                 // Rewrite exception with original exception as the inner exception
                 throw new InvalidOperationException("Error adding product", e);
             };
-           // return UpdateCore(existing, product);
         }
 
         #region Protected Members
@@ -114,7 +143,7 @@ namespace Nile.Stores
 
         protected abstract void RemoveCore( int id );
 
-        protected abstract Product UpdateCore( Product existing, Product newItem );
+        protected abstract void UpdateCore( int id, Product product );
 
         protected abstract Product AddCore( Product product );
 

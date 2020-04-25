@@ -26,6 +26,7 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
+            var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"];
             _gridProducts.AutoGenerateColumns = false;
 
             UpdateList();
@@ -40,36 +41,52 @@ namespace Nile.Windows
 
         private void OnProductAdd( object sender, EventArgs e )
         {
-            var child = new ProductDetailForm("Product Details");
+            ProductDetailForm child = new ProductDetailForm();
+
             do
             {
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
-                //TODO: Handle error
-                var product = _database.Add(child.Product);
 
-                    if(product != null)
-                    {
-                       UpdateList();
-                       return;
-                    }
+                //TODO: Handle error
+                try
+                {
+                    var product = _database.Add(child.Product);
+
+                        UpdateList();
+                        return;
+                    
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message);
+                };
             } while (true);
-            
-            //Save product
-            //_database.Add(child.Product);
-            //UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
             var product = GetSelectedProduct();
             if (product == null)
-            {
-                MessageBox.Show("No products available.");
                 return;
-            };
 
-            EditProduct(product);
+            var child = new ProductDetailForm();
+            child.Product = product;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                // Save
+                try
+                {
+                    _products.Update(product.Id, child.Product);
+                    UpdateList();
+                    return;
+                } catch (Exception ex)
+                {
+                    DisplayError(ex.Message);
+                };
+            } while (true);
         }        
 
         private void OnProductDelete( object sender, EventArgs e )
@@ -135,7 +152,7 @@ namespace Nile.Windows
 
             //TODO: Handle errors
             //Save product
-            _database.Update(child.Product);
+            _database.Update(product.Id, child.Product);
             UpdateList();
         }
 
@@ -161,6 +178,12 @@ namespace Nile.Windows
             aboutBox.Show();
         }
 
+        private void DisplayError ( string message )
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _products;
     }
 }
