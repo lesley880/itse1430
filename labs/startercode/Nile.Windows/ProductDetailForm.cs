@@ -61,7 +61,6 @@ namespace Nile.Windows
             if (!ValidateChildren())
                 return;
 
-            //TODO: Validate product
             var product = GetProduct();
             var errors = ObjectValidator.TryValidate(product);
             

@@ -1,15 +1,17 @@
-﻿using System;
+﻿/*
+ * Lesley Reller
+ * ITSE 1430
+ * 04/25/2020
+ */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nile.Stores;
-/*
- * Lesley Reller
- * ITSE 1430
- * 04/25/2020
- */
+
 namespace Nile.FileSystem
 {
     public class FileProductDatabase : ProductDatabase

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Lesley Reller
+ * ITSE 1430
+ * 04/25/2020
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,11 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nile.Stores;
-/*
- * Lesley Reller
- * ITSE 1430
- * 04/25/2020
- */
+
 
 namespace Nile.SqlServer
 {
@@ -90,8 +92,8 @@ namespace Nile.SqlServer
                     var product = new Product() {
                         Id = Convert.ToInt32(row[0]),                           // row object ordinal
                         Name = row.Field<string>("Name"),                       // feild mehtod with type and column name
-                        Description = row.Field<string>("Description"),         
-                        Price = row.Field<int>("Price"),            
+                        Description = row.Field<string>("Description"),
+                        Price = row.Field<int>("Price"),
                         IsDiscontinued = row.Field<bool>("IsDiscontinued")
                     };
 
@@ -101,14 +103,14 @@ namespace Nile.SqlServer
             return items;
         }
 
-        protected override void UpdateCore (int id, Product product)
+        protected override void UpdateCore ( int id, Product product )
         {
             using (var conn = OpenConnection())
             {
                 var cmd = new SqlCommand("UpdateProduct", conn);
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                
+
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@name", product.Name);
                 cmd.Parameters.AddWithValue("@description", product.Description);
@@ -167,7 +169,6 @@ namespace Nile.SqlServer
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", id);
 
-                // Error - clean up reader
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())

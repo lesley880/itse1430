@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Nile.Stores.Sql")]
+[assembly: AssemblyTitle("Nile.Stoes.Sql")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nile.Stores.Sql")]
+[assembly: AssemblyProduct("Nile.Stoes.Sql")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ce4de828-62e9-4065-af00-f1b157ee7ee8")]
+[assembly: Guid("9d10b8ea-af4b-4f16-8a11-064a243fd011")]
 
 // Version information for an assembly consists of the following four values:
 //

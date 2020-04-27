@@ -34,7 +34,7 @@ namespace MovieLibrary.Business
             };
         }
 
-        protected abstract Movie AddCore ( Movie movie );
+      
 
         public void Delete ( int id )
         {
@@ -51,7 +51,7 @@ namespace MovieLibrary.Business
             };
         }
 
-        protected abstract void DeleteCore ( int id );
+       
 
         public Movie Get ( int id )
         {
@@ -131,11 +131,12 @@ namespace MovieLibrary.Business
                 throw new InvalidOperationException("Error updating movie.", e);
             };
         }
-
+        protected abstract void DeleteCore ( int id );
         protected abstract void UpdateCore ( int id, Movie movie );
 
         protected abstract Movie FindByTitle ( string title );
 
         protected abstract Movie FindById ( int id );
+        protected abstract Movie AddCore ( Movie movie );
     }
 }

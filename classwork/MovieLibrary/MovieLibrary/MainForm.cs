@@ -57,21 +57,6 @@ namespace MovieLibrary
         private void UpdateUI ()
         {
             listMovies.Items.Clear();
-
-            //Extension method approach
-            //var movies = _movies.GetAll()
-            //                    .OrderBy(movie => movie.Title)  // IEnumerable<T> OrderBy<T> ( this IEnumerable<T> source, Func<T, string> sorter );
-            //                    .ThenByDescending(movie => movie.ReleaseYear)
-            //                    ;
-
-            //Error handling = try-catch block
-            // try
-            // { S* }
-            // catch (T id)
-            // { S* }
-            // catch (T id)
-            // { S* }
-            //
             var movies = Enumerable.Empty<Movie>();
             try
             {

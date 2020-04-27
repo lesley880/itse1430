@@ -17,11 +17,9 @@ namespace Nile.Stores
         /// <returns>The added product.</returns>
         public Product Add ( Product product )
         {
-            //TODO: Check arguments
             if (product == null)
                 throw new ArgumentNullException(nameof(Product), "Product is null.");
 
-            //TODO: Validate product
             //.Net
             ObjectValidator.Validate(product);
 
@@ -50,7 +48,6 @@ namespace Nile.Stores
         /// <returns>The product, if it exists.</returns>
         public Product Get ( int id )
         {
-            //TODO: Check arguments
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
             try
@@ -81,7 +78,6 @@ namespace Nile.Stores
         /// <param name="id">The product to remove.</param>
         public void Remove ( int id )
         {
-            //TODO: Check arguments
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
             try
@@ -99,11 +95,9 @@ namespace Nile.Stores
         /// <returns>The updated product.</returns>
         public void Update ( int id, Product product )
         {
-            //TODO: Check arguments
             if (product == null)
                 throw new ArgumentNullException(nameof(Product), "Product is null.");
 
-            //TODO: Validate product
             ObjectValidator.TryValidate(product);
 
             if (id <= 0)

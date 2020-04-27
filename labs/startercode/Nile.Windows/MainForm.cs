@@ -47,8 +47,6 @@ namespace Nile.Windows
             {
                 if (child.ShowDialog(this) != DialogResult.OK)
                     return;
-
-                //TODO: Handle error
                 try
                 {
                     var product = _database.Add(child.Product);
@@ -136,8 +134,6 @@ namespace Nile.Windows
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?",
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
-
-            //TODO: Handle errors
             //Delete product
             _database.Remove(product.Id);
             UpdateList();
@@ -150,7 +146,6 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
             //Save product
             _database.Update(product.Id, child.Product);
             UpdateList();
@@ -166,8 +161,6 @@ namespace Nile.Windows
 
         private void UpdateList ()
         {
-            //TODO: Handle errors
-
             _bsProducts.DataSource = _database.GetAll();
         }
         #endregion
